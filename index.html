@@ -1,0 +1,2946 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font:
+          14px -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #fff;
+        color: #000;
+      }
+      img {
+        max-width: 100%;
+      }
+      [hidden]:not([hidden="until-found" i]) {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <title>Petualangan Mencari Harta Karun</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <style>
+      /* =====================================================
+   PETUALANGAN MENCARI HARTA KARUN – Media Asesmen Matematika
+   Materi: Koordinat Kartesius (SMP/MTs Kelas VIII)
+   ===================================================== */
+
+      /* ---------- 1. Dasar & variabel warna ---------- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --ink: #27323f;
+        --wood: #8a5a2b;
+        --wood-d: #5d3a17;
+        --paper: #fff8e1;
+        --gold: #ffc83d;
+        --green: #35c46a;
+        --red: #ef5350;
+        --blue: #1e88e5;
+        --radius: 20px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        min-height: 100%;
+      }
+      body {
+        font-family: "Trebuchet MS", "Segoe UI", Verdana, Arial, sans-serif;
+        color: var(--ink);
+        line-height: 1.5;
+        overflow-x: hidden;
+        background: linear-gradient(
+          #8fe0ff 0%,
+          #c9f2ff 42%,
+          #3db9ea 42.1%,
+          #1b86cf 100%
+        );
+        background-attachment: fixed;
+        background-color: #c9f2ff;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+
+      /* ---------- 2. Latar belakang animasi (awan & ombak) ---------- */
+      .clouds span {
+        position: fixed;
+        top: 8%;
+        width: 120px;
+        height: 36px;
+        background: #fff;
+        border-radius: 40px;
+        opacity: 0.85;
+        z-index: 0;
+        animation: drift 60s linear infinite;
+      }
+      .clouds span::before,
+      .clouds span::after {
+        content: "";
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+      }
+      .clouds span::before {
+        width: 50px;
+        height: 50px;
+        left: 18px;
+        top: -24px;
+      }
+      .clouds span::after {
+        width: 36px;
+        height: 36px;
+        left: 62px;
+        top: -16px;
+      }
+      .clouds span:nth-child(2) {
+        top: 20%;
+        animation-duration: 85s;
+        animation-delay: -30s;
+        transform: scale(0.7);
+      }
+      .clouds span:nth-child(3) {
+        top: 3%;
+        animation-duration: 110s;
+        animation-delay: -70s;
+        transform: scale(1.2);
+      }
+      @keyframes drift {
+        from {
+          left: -160px;
+        }
+        to {
+          left: 110%;
+        }
+      }
+      .waves {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 90px;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .waves svg {
+        width: 200%;
+        height: 100%;
+        animation: wave 9s linear infinite;
+      }
+      @keyframes wave {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ---------- 3. Layar (screen) & transisi ---------- */
+      #app {
+        position: relative;
+        z-index: 1;
+      }
+      .screen {
+        display: none;
+        padding-block: 22px 90px;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .screen.active {
+        display: block;
+        animation: slideIn 0.55s ease;
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(28px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ---------- 4. Komponen umum ---------- */
+      .card {
+        background: var(--paper);
+        border: 4px solid var(--wood);
+        border-radius: var(--radius);
+        box-shadow:
+          0 8px 0 var(--wood-d),
+          0 16px 26px rgba(0, 0, 0, 0.22);
+        padding: 22px;
+        margin-bottom: 22px;
+      }
+      .card h2 {
+        color: var(--wood-d);
+        margin-bottom: 12px;
+        font-size: 1.6rem;
+      }
+      .btn {
+        font: inherit;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 0.3px;
+        padding: 13px 26px;
+        min-height: 52px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(#ffb300, #fb8c00);
+        box-shadow: 0 5px 0 #b35f00;
+        transition:
+          transform 0.1s,
+          filter 0.2s;
+      }
+      .btn:hover:not(:disabled) {
+        filter: brightness(1.08);
+      }
+      .btn:active:not(:disabled) {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 #b35f00;
+      }
+      .btn.green {
+        background: linear-gradient(#4ddc82, #27ae60);
+        box-shadow: 0 5px 0 #1b7a43;
+      }
+      .btn.green:active:not(:disabled) {
+        box-shadow: 0 1px 0 #1b7a43;
+      }
+      .btn.blue {
+        background: linear-gradient(#4fc3f7, #1e88e5);
+        box-shadow: 0 5px 0 #14609f;
+      }
+      .btn.blue:active:not(:disabled) {
+        box-shadow: 0 1px 0 #14609f;
+      }
+      .btn.gray {
+        background: linear-gradient(#90a4ae, #607d8b);
+        box-shadow: 0 5px 0 #3f535c;
+      }
+      .btn.gray:active:not(:disabled) {
+        box-shadow: 0 1px 0 #3f535c;
+      }
+      .btn.big {
+        font-size: 1.4rem;
+        padding: 16px 38px;
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 18px;
+      }
+      .badge {
+        display: inline-block;
+        background: var(--wood);
+        color: #fff;
+        font-weight: 800;
+        padding: 4px 14px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+      }
+      .badge.alt {
+        background: var(--blue);
+      }
+      .sound-btn {
+        position: fixed;
+        top: calc(12px + env(safe-area-inset-top, 0px));
+        right: calc(12px + env(safe-area-inset-right, 0px));
+        z-index: 50;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 3px solid var(--wood);
+        background: var(--paper);
+        font-size: 1.4rem;
+        cursor: pointer;
+        box-shadow: 0 4px 0 var(--wood-d);
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 90px;
+        transform: translate(-50%, 30px);
+        background: #263238;
+        color: #fff;
+        padding: 12px 22px;
+        border-radius: 30px;
+        font-weight: 700;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        z-index: 90;
+        max-width: 90vw;
+        text-align: center;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      /* ---------- 5. Halaman pembuka ---------- */
+      .hero {
+        text-align: center;
+        padding-top: 30px;
+      }
+      .ribbon {
+        display: inline-block;
+        background: var(--red);
+        color: #fff;
+        font-weight: 800;
+        padding: 6px 22px;
+        border-radius: 6px;
+        box-shadow: 0 4px 0 #a52a28;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+      }
+      .title {
+        font-size: clamp(2rem, 7vw, 3.6rem);
+        color: #fff;
+        text-shadow:
+          0 4px 0 var(--wood-d),
+          0 0 20px rgba(0, 0, 0, 0.25);
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        display: inline-block;
+        margin-top: 10px;
+        background: var(--gold);
+        color: var(--wood-d);
+        font-weight: 800;
+        font-size: 1.3rem;
+        padding: 6px 24px;
+        border-radius: 30px;
+        border: 3px solid var(--wood);
+      }
+      .scene {
+        max-width: 640px;
+        margin: 14px auto 0;
+      }
+      .scene svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+        margin: 10px 0 20px;
+      }
+      .idcard {
+        max-width: 560px;
+        margin: 0 auto;
+        font-size: 0.95rem;
+        text-align: left;
+      }
+      .idcard table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .idcard td {
+        padding: 3px 6px;
+        vertical-align: top;
+      }
+      .idcard td:first-child {
+        font-weight: 800;
+        width: 38%;
+        color: var(--wood-d);
+      }
+
+      /* ---------- 6. Formulir identitas ---------- */
+      .form {
+        display: grid;
+        gap: 14px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .form label {
+        font-weight: 800;
+        color: var(--wood-d);
+        display: block;
+        margin-bottom: 4px;
+      }
+      .form input {
+        width: 100%;
+        font: inherit;
+        color: var(--ink);
+        font-size: 1.1rem;
+        padding: 12px 14px;
+        border: 3px solid var(--wood);
+        border-radius: 14px;
+        background: #fff;
+      }
+      .form input:focus,
+      .ans-input:focus {
+        outline: 4px solid #ffe082;
+      }
+      .form .hint {
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: #6d6d6d;
+      }
+      .error {
+        color: var(--red);
+        font-weight: 800;
+        min-height: 1.4em;
+        text-align: center;
+      }
+      .steps {
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+      .steps li {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: #fff;
+        border: 3px dashed #d7b97a;
+        border-radius: 16px;
+        padding: 12px 14px;
+      }
+      .steps .ic {
+        font-size: 1.8rem;
+        flex: 0 0 auto;
+      }
+      .about-list {
+        margin-left: 22px;
+        display: grid;
+        gap: 6px;
+      }
+
+      /* ---------- 7. Peta petualangan ---------- */
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .progress {
+        height: 18px;
+        background: #e0d4a8;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid var(--wood);
+        min-width: 140px;
+        flex: 1;
+      }
+      .progress > div {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #4ddc82, #ffd54f);
+        transition: width 0.6s;
+      }
+      .map-wrap svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .map-node {
+        cursor: pointer;
+      }
+      .map-node:hover circle.base {
+        filter: brightness(1.1);
+      }
+      .pulse {
+        animation: pulse 1.4s ease-in-out infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+      }
+      @keyframes pulse {
+        50% {
+          transform: scale(1.12);
+        }
+      }
+      .bob {
+        animation: bob 1.1s ease-in-out infinite;
+      }
+      @keyframes bob {
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      .level-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .lv-card {
+        font: inherit;
+        color: var(--ink);
+        text-align: left;
+        cursor: pointer;
+        background: #fff;
+        border: 3px solid var(--wood);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 5px 0 var(--wood-d);
+        transition: transform 0.1s;
+      }
+      .lv-card:active {
+        transform: translateY(3px);
+      }
+      .lv-card h3 {
+        font-size: 1.05rem;
+        color: var(--wood-d);
+      }
+      .lv-card p {
+        font-size: 0.88rem;
+        margin-top: 4px;
+      }
+      .lv-card.locked {
+        background: #eceff1;
+        opacity: 0.7;
+      }
+      .lv-card.done {
+        background: #e8f8ec;
+        border-color: #27ae60;
+      }
+      .lv-state {
+        font-weight: 800;
+        font-size: 0.85rem;
+        margin-top: 6px;
+      }
+
+      /* ---------- 8. Kuis ---------- */
+      .hud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 18px;
+      }
+      .hud b {
+        color: var(--wood-d);
+      }
+      .hud .grow {
+        flex: 1;
+        min-width: 180px;
+      }
+      .q-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .quiz-layout {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr;
+      }
+      .quiz-layout.has-plot {
+        grid-template-columns: 1fr minmax(260px, 400px);
+        align-items: start;
+      }
+      .q-main h2 {
+        font-size: 1.3rem;
+        color: var(--ink);
+        margin-bottom: 14px;
+        line-height: 1.45;
+      }
+      .options {
+        display: grid;
+        gap: 10px;
+      }
+      .opt {
+        font: inherit;
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 1.05rem;
+        text-align: left;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        background: #fff;
+        border: 3px solid #d7b97a;
+        border-radius: 14px;
+        padding: 12px 14px;
+        cursor: pointer;
+        min-height: 54px;
+        transition: 0.15s;
+      }
+      .opt:hover:not(:disabled) {
+        border-color: var(--blue);
+        background: #e3f2fd;
+      }
+      .opt .letter {
+        flex: 0 0 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--wood);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+      }
+      .opt.selected {
+        border-color: var(--blue);
+        background: #bbdefb;
+      }
+      .opt.correct {
+        border-color: #27ae60;
+        background: #c8f3d6;
+      }
+      .opt.correct .letter {
+        background: #27ae60;
+      }
+      .opt.wrong {
+        border-color: var(--red);
+        background: #ffd9d7;
+      }
+      .opt.wrong .letter {
+        background: var(--red);
+      }
+      .opt:disabled {
+        cursor: default;
+      }
+      .ans-input {
+        width: 100%;
+        font: inherit;
+        color: var(--ink);
+        font-size: 1.3rem;
+        font-weight: 700;
+        padding: 14px;
+        border: 3px solid var(--wood);
+        border-radius: 14px;
+        background: #fff;
+        text-align: center;
+      }
+      .ans-input.correct {
+        border-color: #27ae60;
+        background: #c8f3d6;
+      }
+      .ans-input.wrong {
+        border-color: var(--red);
+        background: #ffd9d7;
+      }
+      .actions {
+        margin-top: 16px;
+        text-align: center;
+      }
+      .q-plot svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 14px;
+        border: 3px solid var(--wood);
+        background: #fffdf2;
+      }
+      .plane text {
+        font-family: Arial, sans-serif;
+      }
+      .feedback {
+        margin-top: 20px;
+        border-radius: 16px;
+        padding: 16px 18px;
+        border: 3px solid;
+      }
+      .feedback.good {
+        background: #e8f8ec;
+        border-color: #27ae60;
+        animation: pop 0.5s;
+      }
+      .feedback.bad {
+        background: #fff1f0;
+        border-color: var(--red);
+        animation: shake 0.45s;
+      }
+      .feedback.hidden {
+        display: none;
+      }
+      .fb-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .feedback p {
+        margin: 6px 0;
+      }
+      .feedback .btn {
+        margin-top: 10px;
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes shake {
+        20%,
+        60% {
+          transform: translateX(-8px);
+        }
+        40%,
+        80% {
+          transform: translateX(8px);
+        }
+      }
+
+      /* ---------- 9. Level selesai & hasil ---------- */
+      .center {
+        text-align: center;
+      }
+      .big-icon {
+        width: 160px;
+        margin: 0 auto;
+      }
+      .result-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        margin: 16px 0;
+      }
+      .stat {
+        background: #fff;
+        border: 3px solid #d7b97a;
+        border-radius: 16px;
+        padding: 12px;
+        text-align: center;
+      }
+      .stat .v {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--wood-d);
+      }
+      .stat .l {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6d5a3a;
+      }
+      .nilai {
+        font-size: 4rem;
+        font-weight: 800;
+        color: var(--wood-d);
+        line-height: 1;
+      }
+      .cat {
+        display: inline-block;
+        padding: 8px 26px;
+        border-radius: 40px;
+        color: #fff;
+        font-weight: 800;
+        font-size: 1.3rem;
+        margin: 10px 0;
+      }
+      .cat.c1 {
+        background: #27ae60;
+      }
+      .cat.c2 {
+        background: #1e88e5;
+      }
+      .cat.c3 {
+        background: #fb8c00;
+      }
+      .cat.c4 {
+        background: #e53935;
+      }
+      .id-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: left;
+      }
+      .id-table td {
+        padding: 3px 12px;
+      }
+      .id-table td:first-child {
+        font-weight: 800;
+      }
+      .motivasi {
+        background: #fff3c4;
+        border: 3px dashed #e0b84a;
+        border-radius: 16px;
+        padding: 14px;
+        font-weight: 700;
+        margin: 14px 0;
+      }
+
+      /* ---------- 10. Pembahasan ---------- */
+      .rev-item {
+        background: #fff;
+        border: 3px solid #d7b97a;
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .rev-item.ok {
+        border-color: #27ae60;
+      }
+      .rev-item.no {
+        border-color: var(--red);
+      }
+      .rev-head {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+      .rev-plot {
+        max-width: 340px;
+        margin: 10px 0;
+      }
+      .rev-plot svg {
+        width: 100%;
+        height: auto;
+        border: 2px solid var(--wood);
+        border-radius: 12px;
+      }
+
+      /* ---------- 11. Efek konfeti ---------- */
+      #fx {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 100;
+        overflow: hidden;
+      }
+      .confetti {
+        position: absolute;
+        top: -20px;
+        width: 10px;
+        height: 14px;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translate(var(--dx), 110vh) rotate(720deg);
+        }
+      }
+
+      /* ---------- 12. Responsif ---------- */
+      @media (max-width: 760px) {
+        .quiz-layout.has-plot {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 16px;
+        }
+        .btn {
+          font-size: 1rem;
+          padding: 12px 20px;
+        }
+        .btn.big {
+          font-size: 1.2rem;
+        }
+        .screen {
+          padding-top: 64px;
+        }
+      }
+
+      /* ---------- 13. Dialog dalam halaman (pengganti confirm/alert) ---------- */
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 30, 40, 0.55);
+        display: grid;
+        place-items: center;
+        z-index: 200;
+        padding: 16px;
+      }
+      .modal-box {
+        max-width: 460px;
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
+      .modal-box textarea {
+        width: 100%;
+        height: 190px;
+        font: inherit;
+        font-size: 0.9rem;
+        padding: 10px;
+        border: 3px solid var(--wood);
+        border-radius: 12px;
+        color: var(--ink);
+        background: #fff;
+        text-align: left;
+        margin-top: 8px;
+      }
+    </style>
+
+    <!-- Latar belakang dekoratif -->
+    <div class="clouds" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="waves" aria-hidden="true">
+      <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+        <path
+          d="M0 40 Q75 10 150 40 T300 40 T450 40 T600 40 T750 40 T900 40 T1050 40 T1200 40 V90 H0Z"
+          fill="#0f6fb8"
+          opacity=".55"
+        />
+        <path
+          d="M0 55 Q75 30 150 55 T300 55 T450 55 T600 55 T750 55 T900 55 T1050 55 T1200 55 V90 H0Z"
+          fill="#0b5a9c"
+          opacity=".7"
+        />
+      </svg>
+    </div>
+    <button
+      id="btnSound"
+      class="sound-btn"
+      aria-label="Atur suara"
+      title="Suara aktif/nonaktif"
+    >
+      🔊
+    </button>
+    <div id="fx"></div>
+    <div id="toast" class="toast" role="status"></div>
+    <div id="modal" class="modal" hidden>
+      <div
+        class="card modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <h2 id="modalTitle"></h2>
+        <div id="modalBody"></div>
+        <div class="btn-row" id="modalBtns"></div>
+      </div>
+    </div>
+
+    <main id="app">
+      <!-- ==================== 1. HALAMAN PEMBUKA ==================== -->
+      <section id="screen-opening" class="screen active">
+        <div class="hero">
+          <div class="ribbon">ASESMEN AKHIR • MATEMATIKA</div>
+          <h1 class="title">Petualangan<br />Mencari Harta Karun</h1>
+          <div class="subtitle">Koordinat Kartesius</div>
+          <div class="scene" id="openingScene"></div>
+          <div class="menu">
+            <button class="btn green big" data-go="screen-identity">
+              ▶ MULAI
+            </button>
+            <button class="btn big" id="btnContinue" hidden>
+              ⏩ LANJUTKAN
+            </button>
+            <button class="btn blue big" data-go="screen-help">
+              📜 PETUNJUK
+            </button>
+            <button class="btn gray big" data-go="screen-about">
+              ℹ️ TENTANG
+            </button>
+          </div>
+          <div class="card idcard">
+            <table>
+              <tr>
+                <td>Nama Media</td>
+                <td>Petualangan Mencari Harta Karun</td>
+              </tr>
+              <tr>
+                <td>Mata Pelajaran</td>
+                <td>Matematika</td>
+              </tr>
+              <tr>
+                <td>Materi</td>
+                <td>Koordinat Kartesius</td>
+              </tr>
+              <tr>
+                <td>Jenjang / Kelas</td>
+                <td>SMP/MTs – Kelas VIII</td>
+              </tr>
+              <tr>
+                <td>Jenis Asesmen</td>
+                <td>Asesmen akhir pembelajaran (sumatif)</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. IDENTITAS PEMAIN ==================== -->
+      <section id="screen-identity" class="screen">
+        <div class="card">
+          <h2>🧑‍✈️ Identitas Petualang</h2>
+          <p style="margin-bottom: 14px">
+            Isi datamu dulu sebelum berlayar mencari harta karun!
+          </p>
+          <form id="identityForm" class="form" autocomplete="off">
+            <div>
+              <label for="inNama">Nama Peserta Didik *</label
+              ><input
+                id="inNama"
+                type="text"
+                maxlength="50"
+                placeholder="Ica Najatul"
+              />
+            </div>
+            <div>
+              <label for="inKelas">Kelas *</label
+              ><input
+                id="inKelas"
+                type="text"
+                maxlength="12"
+                placeholder="VIII-A"
+              />
+            </div>
+            <div>
+              <label for="inAbsen"
+                >Nomor Absen <span class="hint">(opsional)</span></label
+              ><input
+                id="inAbsen"
+                type="number"
+                min="1"
+                max="99"
+                placeholder="12"
+              />
+            </div>
+            <div class="error" id="idError"></div>
+            <div class="btn-row" style="margin-top: 0">
+              <button type="submit" class="btn green big">
+                ⛵ MULAI PETUALANGAN
+              </button>
+              <button type="button" class="btn gray" data-go="screen-opening">
+                ⬅ Kembali
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==================== 3. PETUNJUK ==================== -->
+      <section id="screen-help" class="screen">
+        <div class="card">
+          <h2>📜 Petunjuk Permainan</h2>
+          <ol class="steps">
+            <li>
+              <span class="ic">🧠</span>
+              <div>
+                Kamu harus menyelesaikan <b>soal matematika</b> tentang
+                koordinat Kartesius di setiap level.
+              </div>
+            </li>
+            <li>
+              <span class="ic">✍️</span>
+              <div>
+                Setiap soal berupa <b>pilihan ganda</b> atau
+                <b>isian singkat</b>. Pilih atau ketik jawabanmu, lalu tekan
+                tombol <b>JAWAB</b>.
+              </div>
+            </li>
+            <li>
+              <span class="ic">⭐</span>
+              <div>
+                Jawaban <b>benar</b> mendapat <b>10 poin</b>. Jawaban salah
+                mendapat 0 poin.
+              </div>
+            </li>
+            <li>
+              <span class="ic">💡</span>
+              <div>
+                Jika jawabanmu salah, kamu akan mendapat
+                <b>koreksi dan penjelasan</b> agar paham konsepnya.
+              </div>
+            </li>
+            <li>
+              <span class="ic">🗺️</span>
+              <div>
+                Ada <b>4 level</b>, masing-masing 5 soal. Selesaikan satu level
+                untuk membuka level berikutnya. Setiap soal hanya dapat dijawab
+                satu kali.
+              </div>
+            </li>
+            <li>
+              <span class="ic">🏴‍☠️</span>
+              <div>
+                Selesaikan <b>seluruh tantangan</b> untuk membuka peti harta
+                karun, lalu lihat <b>nilai akhirmu</b> (skala 0–100).
+              </div>
+            </li>
+            <li>
+              <span class="ic">✏️</span>
+              <div>
+                Format jawaban koordinat: tulis <b>(x, y)</b>, misalnya
+                <b>(2, -3)</b>. Gunakan tanda minus (-) untuk bilangan negatif.
+              </div>
+            </li>
+          </ol>
+          <div class="btn-row">
+            <button class="btn gray" data-go="screen-opening">⬅ Kembali</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TENTANG ==================== -->
+      <section id="screen-about" class="screen">
+        <div class="card">
+          <h2>ℹ️ Tentang Media</h2>
+          <p>
+            <b>Petualangan Mencari Harta Karun</b> adalah game edukasi dan kuis
+            interaktif untuk <b>asesmen akhir (sumatif)</b> Matematika materi
+            <b>Koordinat Kartesius</b>, jenjang SMP/MTs kelas VIII. Media
+            berjalan di web (HTML5) dan dapat digunakan tanpa internet.
+          </p>
+          <h3 style="margin: 14px 0 6px; color: var(--wood-d)">
+            Tujuan Pembelajaran yang Diukur
+          </h3>
+          <ul class="about-list">
+            <li>Memahami konsep koordinat Kartesius.</li>
+            <li>Mengidentifikasi sumbu X dan sumbu Y.</li>
+            <li>Menentukan titik pusat koordinat (0,0).</li>
+            <li>Mengidentifikasi empat kuadran.</li>
+            <li>
+              Menentukan letak titik berdasarkan pasangan koordinat (x,y).
+            </li>
+            <li>Membaca koordinat suatu titik pada bidang Kartesius.</li>
+            <li>Menentukan koordinat berdasarkan posisi titik pada grafik.</li>
+            <li>
+              Menyelesaikan masalah kontekstual yang berkaitan dengan koordinat
+              Kartesius.
+            </li>
+          </ul>
+          <h3 style="margin: 14px 0 6px; color: var(--wood-d)">Penilaian</h3>
+          <p>
+            20 soal × 10 poin = skor maksimal 200. Nilai = (skor ÷ 200) × 100.
+          </p>
+          <div class="btn-row">
+            <button class="btn gray" data-go="screen-opening">⬅ Kembali</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. PETA PETUALANGAN ==================== -->
+      <section id="screen-map" class="screen">
+        <div class="card">
+          <div class="stats">
+            <div><b id="mapPlayer"></b></div>
+            <div>Skor: <b id="mapScore">0</b></div>
+            <div style="flex: 1; min-width: 200px">
+              <div class="progress"><div id="mapProgress"></div></div>
+              <small id="mapProgressText"></small>
+            </div>
+          </div>
+        </div>
+        <div class="card map-wrap">
+          <h2>🗺️ Peta Petualangan</h2>
+          <div id="mapSvgHolder"></div>
+          <p class="center" style="margin-top: 6px">
+            Ketuk lingkaran level untuk melanjutkan petualanganmu.
+          </p>
+        </div>
+        <div class="card">
+          <h2>🧭 Daftar Level</h2>
+          <div class="level-cards" id="levelCards"></div>
+          <div class="btn-row">
+            <button class="btn green big" id="btnToResult" hidden>
+              🏆 LIHAT HASIL AKHIR
+            </button>
+            <button class="btn gray" data-go="screen-opening">
+              🏠 Beranda
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. KUIS ==================== -->
+      <section id="screen-quiz" class="screen">
+        <div class="card hud">
+          <div class="grow">
+            <b id="hudLevel"></b>
+            <div class="progress" style="margin-top: 6px">
+              <div id="hudProgress"></div>
+            </div>
+          </div>
+          <div>Skor: <b id="hudScore">0</b></div>
+          <button
+            class="btn gray"
+            id="btnToMap"
+            style="min-height: 42px; padding: 8px 16px; font-size: 0.95rem"
+          >
+            🗺️ Peta
+          </button>
+        </div>
+        <div class="card">
+          <div class="q-meta">
+            <span class="badge" id="qNumber"></span
+            ><span class="badge alt" id="qType"></span>
+          </div>
+          <div class="quiz-layout" id="quizLayout">
+            <div class="q-main">
+              <h2 id="qText"></h2>
+              <div id="qAnswer"></div>
+              <div class="actions">
+                <button class="btn green big" id="btnAnswer" disabled>
+                  ✔ JAWAB
+                </button>
+              </div>
+            </div>
+            <div class="q-plot" id="qPlot"></div>
+          </div>
+          <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- ==================== LEVEL SELESAI ==================== -->
+      <section id="screen-leveldone" class="screen">
+        <div class="card center">
+          <div class="big-icon" id="levelDoneArt"></div>
+          <h2 id="levelDoneTitle"></h2>
+          <p id="levelDoneText" style="font-size: 1.15rem"></p>
+          <div class="btn-row">
+            <button class="btn green big" id="btnLevelNext"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 9. HASIL ASESMEN ==================== -->
+      <section id="screen-result" class="screen">
+        <div class="card center" id="resultCard"></div>
+      </section>
+
+      <!-- ==================== PEMBAHASAN ==================== -->
+      <section id="screen-review" class="screen">
+        <div class="card">
+          <h2>📖 Pembahasan Seluruh Soal</h2>
+          <div class="btn-row" style="margin: 0 0 14px">
+            <button class="btn gray" data-go="screen-result">
+              ⬅ Kembali ke Hasil
+            </button>
+          </div>
+          <div id="reviewList"></div>
+          <div class="btn-row">
+            <button class="btn gray" data-go="screen-result">
+              ⬅ Kembali ke Hasil
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /* =====================================================
+   BAGIAN A – DATA SOAL & LOGIKA PENILAIAN (murni, tanpa DOM)
+   ===================================================== */
+
+      /* Daftar level */
+      const LEVELS = [
+        {
+          n: 1,
+          title: "Mengenal Koordinat Kartesius",
+          desc: "Pengertian koordinat, sumbu X, sumbu Y, dan titik pusat.",
+          icon: "🧭",
+        },
+        {
+          n: 2,
+          title: "Menjelajahi Empat Kuadran",
+          desc: "Kuadran I–IV serta tanda positif dan negatif.",
+          icon: "🌴",
+        },
+        {
+          n: 3,
+          title: "Menentukan Posisi Titik",
+          desc: "Membaca pasangan koordinat dan letak titik pada grafik.",
+          icon: "📍",
+        },
+        {
+          n: 4,
+          title: "Misi Terakhir Harta Karun",
+          desc: "Soal kontekstual dan pemecahan masalah koordinat.",
+          icon: "💎",
+        },
+      ];
+
+      /*
+  Format soal:
+  type   : 'mc' (pilihan ganda) | 'input' (isian)
+  answer : mc -> teks opsi yang benar | input -> angka, [x,y], angka kuadran, atau huruf
+  inputKind: 'number' | 'coord' | 'quadrant' | 'letter'
+  plot   : {r: rentang sumbu, points:[{x,y,label}], segs:[[i,j],...], quad:true/false}
+*/
+      const QUESTIONS = [
+        /* ---------------- LEVEL 1 ---------------- */
+        {
+          id: 1,
+          level: 1,
+          type: "mc",
+          text: "Pada bidang koordinat Kartesius, garis mendatar (horizontal) disebut ....",
+          options: ["Sumbu X", "Sumbu Y", "Kuadran", "Titik asal"],
+          answer: "Sumbu X",
+          explanation:
+            "Garis mendatar disebut <b>sumbu X</b> (sumbu absis), sedangkan garis tegak disebut <b>sumbu Y</b> (sumbu ordinat).",
+        },
+        {
+          id: 2,
+          level: 1,
+          type: "mc",
+          text: "Titik potong antara sumbu X dan sumbu Y disebut titik pusat koordinat. Koordinat titik tersebut adalah ....",
+          options: ["(1, 1)", "(0, 1)", "(0, 0)", "(1, 0)"],
+          answer: "(0, 0)",
+          explanation:
+            "Titik pusat berada di perpotongan kedua sumbu, sehingga absisnya 0 dan ordinatnya 0, yaitu <b>(0, 0)</b>.",
+        },
+        {
+          id: 3,
+          level: 1,
+          type: "input",
+          inputKind: "number",
+          answer: 4,
+          placeholder: "Ketik angka",
+          text: "Titik P berkoordinat (4, 7). Berapakah nilai absis (nilai x) dari titik P?",
+          explanation:
+            "Koordinat ditulis (absis, ordinat) atau (x, y). Pada P(4, 7), absisnya adalah <b>4</b> dan ordinatnya 7.",
+        },
+        {
+          id: 4,
+          level: 1,
+          type: "mc",
+          text: "Perhatikan gambar. Titik A terletak pada ....",
+          options: ["Sumbu X", "Sumbu Y", "Kuadran I", "Titik pusat (0, 0)"],
+          answer: "Sumbu Y",
+          plot: { r: 5, points: [{ x: 0, y: 3, label: "A" }] },
+          explanation:
+            "Titik A berkoordinat (0, 3). Karena absisnya 0, titik A berada di <b>sumbu Y</b>, tepat 3 satuan di atas titik pusat.",
+        },
+        {
+          id: 5,
+          level: 1,
+          type: "input",
+          inputKind: "number",
+          answer: 0,
+          placeholder: "Ketik angka",
+          text: "Setiap titik yang terletak pada sumbu X memiliki ordinat (nilai y) sebesar ....",
+          explanation:
+            "Titik pada sumbu X tidak naik maupun turun dari sumbu, sehingga ordinatnya selalu <b>0</b>. Contoh: (5, 0) dan (−3, 0).",
+        },
+
+        /* ---------------- LEVEL 2 ---------------- */
+        {
+          id: 6,
+          level: 2,
+          type: "mc",
+          text: "Titik (−3, 4) terletak pada ....",
+          options: ["Kuadran I", "Kuadran II", "Kuadran III", "Kuadran IV"],
+          answer: "Kuadran II",
+          explanation:
+            "Absis −3 (negatif) berarti di kiri sumbu Y, ordinat 4 (positif) berarti di atas sumbu X. Daerah kiri-atas adalah <b>kuadran II</b>.",
+        },
+        {
+          id: 7,
+          level: 2,
+          type: "mc",
+          text: "Titik yang berada di kuadran III memiliki tanda ....",
+          options: [
+            "x positif dan y positif",
+            "x negatif dan y positif",
+            "x negatif dan y negatif",
+            "x positif dan y negatif",
+          ],
+          answer: "x negatif dan y negatif",
+          explanation:
+            "Kuadran III berada di kiri-bawah titik pusat, sehingga <b>x negatif dan y negatif</b>. (I: +,+ ; II: −,+ ; III: −,− ; IV: +,−)",
+        },
+        {
+          id: 8,
+          level: 2,
+          type: "input",
+          inputKind: "quadrant",
+          answer: 4,
+          placeholder: "Contoh: I atau 1",
+          text: "Titik (5, −2) terletak pada kuadran ke- .... (tulis dengan angka romawi atau angka biasa, misalnya I atau 1)",
+          explanation:
+            "Absis 5 positif (di kanan sumbu Y) dan ordinat −2 negatif (di bawah sumbu X). Daerah kanan-bawah adalah <b>kuadran IV</b>.",
+        },
+        {
+          id: 9,
+          level: 2,
+          type: "mc",
+          text: "Perhatikan gambar. Titik P terletak pada ....",
+          options: ["Kuadran I", "Kuadran II", "Kuadran III", "Kuadran IV"],
+          answer: "Kuadran III",
+          plot: { r: 6, points: [{ x: -4, y: -3, label: "P" }] },
+          explanation:
+            "Titik P berkoordinat (−4, −3): berada di kiri sumbu Y dan di bawah sumbu X, yaitu <b>kuadran III</b>.",
+        },
+        {
+          id: 10,
+          level: 2,
+          type: "input",
+          inputKind: "letter",
+          answer: "C",
+          placeholder: "Ketik huruf",
+          text: "Perhatikan gambar. Titik manakah yang terletak pada kuadran III? (jawab dengan huruf titik)",
+          plot: {
+            r: 7,
+            quad: true,
+            points: [
+              { x: 2, y: 3, label: "A" },
+              { x: -1, y: 4, label: "B" },
+              { x: -5, y: -2, label: "C" },
+              { x: 3, y: -6, label: "D" },
+            ],
+          },
+          explanation:
+            "Kuadran III berada di kiri-bawah titik pusat. Titik <b>C(−5, −2)</b> memenuhi: x negatif dan y negatif. A di kuadran I, B di kuadran II, D di kuadran IV.",
+        },
+
+        /* ---------------- LEVEL 3 ---------------- */
+        {
+          id: 11,
+          level: 3,
+          type: "input",
+          inputKind: "coord",
+          answer: [-3, 2],
+          placeholder: "Format: (x, y)",
+          text: "Perhatikan gambar. Tentukan koordinat titik A! (tulis dengan format (x, y))",
+          plot: { r: 5, points: [{ x: -3, y: 2, label: "A" }] },
+          explanation:
+            "Dari titik pusat, titik A berada <b>3 satuan ke kiri</b> (x = −3) dan <b>2 satuan ke atas</b> (y = 2). Jadi A(−3, 2).",
+        },
+        {
+          id: 12,
+          level: 3,
+          type: "mc",
+          noShuffle: true,
+          text: "Perhatikan gambar. Titik yang berkoordinat (−2, −4) adalah ....",
+          options: ["Titik A", "Titik B", "Titik C", "Titik D"],
+          answer: "Titik D",
+          plot: {
+            r: 5,
+            points: [
+              { x: -2, y: 4, label: "A" },
+              { x: 2, y: -4, label: "B" },
+              { x: -4, y: -2, label: "C" },
+              { x: -2, y: -4, label: "D" },
+            ],
+          },
+          explanation:
+            "Koordinat (−2, −4) berarti 2 satuan ke kiri dan 4 satuan ke bawah, yaitu <b>titik D</b>. Titik A(−2, 4), B(2, −4), dan C(−4, −2) memiliki koordinat yang berbeda.",
+        },
+        {
+          id: 13,
+          level: 3,
+          type: "input",
+          inputKind: "number",
+          answer: 5,
+          placeholder: "Ketik angka",
+          text: "Perhatikan gambar. Berapa satuan jarak titik K dari sumbu Y?",
+          plot: { r: 6, points: [{ x: 5, y: -3, label: "K" }] },
+          explanation:
+            "Titik K(5, −3). Jarak suatu titik ke sumbu Y sama dengan nilai mutlak absisnya, yaitu |5| = <b>5 satuan</b>. (Jarak ke sumbu X adalah |−3| = 3.)",
+        },
+        {
+          id: 14,
+          level: 3,
+          type: "mc",
+          text: "Perhatikan gambar. Garis yang menghubungkan titik A dan titik B sejajar dengan ....",
+          options: [
+            "Sumbu X",
+            "Sumbu Y",
+            "Tidak sejajar sumbu mana pun",
+            "Garis yang melalui titik pusat",
+          ],
+          answer: "Sumbu X",
+          plot: {
+            r: 5,
+            points: [
+              { x: -3, y: 2, label: "A" },
+              { x: 4, y: 2, label: "B" },
+            ],
+            segs: [[0, 1]],
+          },
+          explanation:
+            "A(−3, 2) dan B(4, 2) memiliki ordinat yang sama (y = 2), sehingga garis AB mendatar dan <b>sejajar sumbu X</b>.",
+        },
+        {
+          id: 15,
+          level: 3,
+          type: "input",
+          inputKind: "coord",
+          answer: [-3, 5],
+          placeholder: "Format: (x, y)",
+          text: "Sebuah titik berada 3 satuan di sebelah kiri sumbu Y dan 5 satuan di atas sumbu X. Tentukan koordinat titik tersebut! (format (x, y))",
+          explanation:
+            "Di kiri sumbu Y berarti x negatif: x = −3. Di atas sumbu X berarti y positif: y = 5. Koordinatnya <b>(−3, 5)</b>.",
+        },
+
+        /* ---------------- LEVEL 4 ---------------- */
+        {
+          id: 16,
+          level: 4,
+          type: "input",
+          inputKind: "coord",
+          answer: [2, -2],
+          placeholder: "Format: (x, y)",
+          text: "Petualang berada di titik A pada peta. Ia berjalan 6 satuan ke kanan, kemudian 5 satuan ke bawah. Di koordinat manakah ia berhenti? (format (x, y))",
+          plot: { r: 7, points: [{ x: -4, y: 3, label: "A" }] },
+          explanation:
+            "Titik awal A(−4, 3). Ke kanan 6 satuan: x = −4 + 6 = 2. Ke bawah 5 satuan: y = 3 − 5 = −2. Ia berhenti di <b>(2, −2)</b>.",
+        },
+        {
+          id: 17,
+          level: 4,
+          type: "mc",
+          text: "Peta pulau menunjukkan Pelabuhan (P), Gua (G), Pohon kelapa (T), dan Danau (D). Jika keempat lokasi dihubungkan berurutan P–G–T–D–P, bangun yang terbentuk adalah ....",
+          options: ["Persegi", "Persegi panjang", "Jajargenjang", "Trapesium"],
+          answer: "Persegi panjang",
+          plot: {
+            r: 6,
+            points: [
+              { x: -5, y: -4, label: "P" },
+              { x: 3, y: -4, label: "G" },
+              { x: 3, y: 2, label: "T" },
+              { x: -5, y: 2, label: "D" },
+            ],
+            segs: [
+              [0, 1],
+              [1, 2],
+              [2, 3],
+              [3, 0],
+            ],
+          },
+          explanation:
+            "P(−5, −4), G(3, −4), T(3, 2), D(−5, 2). Panjang PG = 8 satuan dan GT = 6 satuan; sisi-sisinya saling tegak lurus. Karena sisi berdekatan tidak sama panjang, bangunnya <b>persegi panjang</b>.",
+        },
+        {
+          id: 18,
+          level: 4,
+          type: "input",
+          inputKind: "number",
+          answer: -8,
+          placeholder: "Ketik angka",
+          text: "Harta karun berada di titik (−5, y) pada kuadran III. Jika jarak harta karun ke sumbu X adalah 8 satuan, berapakah nilai y?",
+          explanation:
+            "Jarak ke sumbu X adalah |y| = 8, sehingga y = 8 atau y = −8. Karena berada di kuadran III (y negatif), maka <b>y = −8</b>.",
+        },
+        {
+          id: 19,
+          level: 4,
+          type: "mc",
+          text: "Titik A, B, dan C pada peta adalah tiga titik sudut persegi ABCD. Koordinat titik D adalah ....",
+          options: ["(−2, −5)", "(−2, 5)", "(−4, −5)", "(2, −5)"],
+          answer: "(−2, −5)",
+          plot: {
+            r: 6,
+            points: [
+              { x: -2, y: 1, label: "A" },
+              { x: 4, y: 1, label: "B" },
+              { x: 4, y: -5, label: "C" },
+            ],
+            segs: [
+              [0, 1],
+              [1, 2],
+            ],
+          },
+          explanation:
+            "A(−2, 1), B(4, 1), C(4, −5): panjang sisi = 6 satuan. D sejajar di bawah A dan sejajar di kiri C, sehingga D memiliki x = −2 dan y = −5, yaitu <b>(−2, −5)</b>.",
+        },
+        {
+          id: 20,
+          level: 4,
+          type: "input",
+          inputKind: "coord",
+          answer: [-3, -2],
+          placeholder: "Format: (x, y)",
+          text: "Harta karun terletak di titik yang absisnya sama dengan absis Pohon T dan ordinatnya sama dengan ordinat Gua G (lihat peta). Tentukan koordinat harta karun! (format (x, y))",
+          plot: {
+            r: 6,
+            points: [
+              { x: -3, y: 4, label: "T" },
+              { x: 5, y: -2, label: "G" },
+            ],
+          },
+          explanation:
+            "Pohon T(−3, 4) → absis = −3. Gua G(5, −2) → ordinat = −2. Jadi harta karun berada di <b>(−3, −2)</b>.",
+        },
+      ];
+
+      /* Normalisasi teks jawaban: samakan tanda minus, hapus spasi, huruf kecil */
+      function normalizeText(s) {
+        return String(s)
+          .replace(/[\u2212\u2013\u2014]/g, "-")
+          .replace(/\s+/g, "")
+          .toLowerCase();
+      }
+
+      /* Memeriksa jawaban. Mengembalikan true jika benar */
+      function isCorrect(q, given) {
+        if (
+          given === null ||
+          given === undefined ||
+          String(given).trim() === ""
+        )
+          return false;
+        if (q.type === "mc") return given === q.answer;
+        let g = normalizeText(given);
+        switch (q.inputKind) {
+          case "number": {
+            g = g.replace(",", ".");
+            return !isNaN(Number(g)) && Number(g) === Number(q.answer);
+          }
+          case "coord": {
+            g = g.replace(/[()\[\]]/g, "").replace(/;/g, ",");
+            const parts = g.split(",");
+            if (parts.length !== 2) return false;
+            if (!parts.every((p) => p !== "" && !isNaN(Number(p))))
+              return false;
+            return (
+              Number(parts[0]) === q.answer[0] &&
+              Number(parts[1]) === q.answer[1]
+            );
+          }
+          case "quadrant": {
+            g = g
+              .replace("kuadran", "")
+              .replace("ke-", "")
+              .replace(/[^a-z0-9]/g, "");
+            const map = { i: 1, 1: 1, ii: 2, 2: 2, iii: 3, 3: 3, iv: 4, 4: 4 };
+            return map[g] === Number(q.answer);
+          }
+          case "letter": {
+            g = g.replace("titik", "");
+            return g === String(q.answer).toLowerCase();
+          }
+        }
+        return false;
+      }
+
+      /* Teks kunci jawaban untuk ditampilkan */
+      function minusFix(s) {
+        return String(s).replace(/-/g, "\u2212");
+      }
+      function answerText(q) {
+        if (q.type === "mc") return q.answer;
+        switch (q.inputKind) {
+          case "number":
+            return minusFix(q.answer);
+          case "coord":
+            return minusFix("(" + q.answer[0] + ", " + q.answer[1] + ")");
+          case "quadrant":
+            return "Kuadran " + ["", "I", "II", "III", "IV"][q.answer];
+          case "letter":
+            return "Titik " + q.answer;
+        }
+        return String(q.answer);
+      }
+
+      /* Menghitung hasil: 10 poin per jawaban benar, nilai = skor/200*100 */
+      function computeResult(answers) {
+        const answered = answers.filter(Boolean).length;
+        const correct = answers.filter((a) => a && a.correct).length;
+        const wrong = answered - correct;
+        const score = correct * 10;
+        const nilai = Math.round((score / 200) * 100 * 10) / 10;
+        let category, cls;
+        if (nilai >= 90) {
+          category = "Sangat Baik";
+          cls = "c1";
+        } else if (nilai >= 80) {
+          category = "Baik";
+          cls = "c2";
+        } else if (nilai >= 70) {
+          category = "Cukup";
+          cls = "c3";
+        } else {
+          category = "Perlu Belajar Kembali";
+          cls = "c4";
+        }
+        return {
+          answered,
+          correct,
+          wrong,
+          score,
+          nilai,
+          category,
+          cls,
+          percent: nilai,
+        };
+      }
+
+      /* Acak urutan array (Fisher–Yates) – hanya untuk urutan pilihan jawaban */
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      /* === UI === (batas pengujian: bagian di bawah ini memakai DOM) */
+
+      /* =====================================================
+   BAGIAN B – VISUALISASI BIDANG KARTESIUS (SVG)
+   ===================================================== */
+      const PT_COLORS = [
+        "#e53935",
+        "#1e88e5",
+        "#43a047",
+        "#fb8c00",
+        "#8e24aa",
+        "#00897b",
+      ];
+
+      /*
+  Membuat bidang Kartesius dalam SVG.
+  spec.r      : jangkauan sumbu (-r sampai r)
+  spec.points : titik-titik yang digambar
+  spec.segs   : pasangan indeks titik yang dihubungkan garis
+  spec.quad   : tampilkan label kuadran
+  reveal      : tampilkan koordinat titik + garis bantu (setelah dijawab / pembahasan)
+*/
+      function planeSVG(spec, reveal) {
+        const r = spec.r || 6,
+          S = 420,
+          M = 36;
+        const u = (S - 2 * M) / (2 * r),
+          c = S / 2;
+        const X = (v) => c + v * u,
+          Y = (v) => c - v * u;
+        let s =
+          '<svg class="plane" viewBox="0 0 ' +
+          S +
+          " " +
+          S +
+          '" role="img" aria-label="Bidang koordinat Kartesius">';
+        s +=
+          '<rect x="0" y="0" width="' +
+          S +
+          '" height="' +
+          S +
+          '" fill="#fffdf2"/>';
+
+        // tint & label kuadran (opsional)
+        if (spec.quad) {
+          const w = r * u,
+            tints = ["#fff3b0", "#ffd6d6", "#d6efff", "#d9f7d6"];
+          s +=
+            '<rect x="' +
+            c +
+            '" y="' +
+            M +
+            '" width="' +
+            w +
+            '" height="' +
+            w +
+            '" fill="' +
+            tints[0] +
+            '" opacity=".7"/>';
+          s +=
+            '<rect x="' +
+            M +
+            '" y="' +
+            M +
+            '" width="' +
+            w +
+            '" height="' +
+            w +
+            '" fill="' +
+            tints[1] +
+            '" opacity=".7"/>';
+          s +=
+            '<rect x="' +
+            M +
+            '" y="' +
+            c +
+            '" width="' +
+            w +
+            '" height="' +
+            w +
+            '" fill="' +
+            tints[2] +
+            '" opacity=".7"/>';
+          s +=
+            '<rect x="' +
+            c +
+            '" y="' +
+            c +
+            '" width="' +
+            w +
+            '" height="' +
+            w +
+            '" fill="' +
+            tints[3] +
+            '" opacity=".7"/>';
+          const q = [
+            ["I", c + w / 2, M + w / 2],
+            ["II", M + w / 2, M + w / 2],
+            ["III", M + w / 2, c + w / 2],
+            ["IV", c + w / 2, c + w / 2],
+          ];
+          q.forEach((t) => {
+            s +=
+              '<text x="' +
+              t[1] +
+              '" y="' +
+              (t[2] + 14) +
+              '" text-anchor="middle" font-size="40" font-weight="bold" fill="#000" opacity=".16">' +
+              t[0] +
+              "</text>";
+          });
+        }
+
+        // garis grid
+        for (let i = -r; i <= r; i++) {
+          s +=
+            '<line x1="' +
+            X(i) +
+            '" y1="' +
+            Y(r) +
+            '" x2="' +
+            X(i) +
+            '" y2="' +
+            Y(-r) +
+            '" stroke="#e2d6ae" stroke-width="1"/>';
+          s +=
+            '<line x1="' +
+            X(-r) +
+            '" y1="' +
+            Y(i) +
+            '" x2="' +
+            X(r) +
+            '" y2="' +
+            Y(i) +
+            '" stroke="#e2d6ae" stroke-width="1"/>';
+        }
+
+        // sumbu X dan Y beserta panah
+        s +=
+          '<line x1="' +
+          (M - 12) +
+          '" y1="' +
+          c +
+          '" x2="' +
+          (S - M + 12) +
+          '" y2="' +
+          c +
+          '" stroke="#27323f" stroke-width="2.6"/>';
+        s +=
+          '<line x1="' +
+          c +
+          '" y1="' +
+          (S - M + 12) +
+          '" x2="' +
+          c +
+          '" y2="' +
+          (M - 12) +
+          '" stroke="#27323f" stroke-width="2.6"/>';
+        s +=
+          '<polygon points="' +
+          (S - M + 20) +
+          "," +
+          c +
+          " " +
+          (S - M + 9) +
+          "," +
+          (c - 6) +
+          " " +
+          (S - M + 9) +
+          "," +
+          (c + 6) +
+          '" fill="#27323f"/>';
+        s +=
+          '<polygon points="' +
+          c +
+          "," +
+          (M - 20) +
+          " " +
+          (c - 6) +
+          "," +
+          (M - 9) +
+          " " +
+          (c + 6) +
+          "," +
+          (M - 9) +
+          '" fill="#27323f"/>';
+        s +=
+          '<text x="' +
+          (S - 8) +
+          '" y="' +
+          (c + 22) +
+          '" text-anchor="end" font-size="16" font-weight="bold" fill="#27323f">X</text>';
+        s +=
+          '<text x="' +
+          (c + 12) +
+          '" y="14" font-size="16" font-weight="bold" fill="#27323f">Y</text>';
+
+        // angka pada sumbu (positif dan negatif)
+        for (let i = -r; i <= r; i++) {
+          if (i === 0) continue;
+          const label = i < 0 ? "\u2212" + Math.abs(i) : String(i);
+          s +=
+            '<line x1="' +
+            X(i) +
+            '" y1="' +
+            (c - 4) +
+            '" x2="' +
+            X(i) +
+            '" y2="' +
+            (c + 4) +
+            '" stroke="#27323f" stroke-width="1.6"/>';
+          s +=
+            '<text x="' +
+            X(i) +
+            '" y="' +
+            (c + 18) +
+            '" text-anchor="middle" font-size="12" fill="#27323f">' +
+            label +
+            "</text>";
+          s +=
+            '<line x1="' +
+            (c - 4) +
+            '" y1="' +
+            Y(i) +
+            '" x2="' +
+            (c + 4) +
+            '" y2="' +
+            Y(i) +
+            '" stroke="#27323f" stroke-width="1.6"/>';
+          s +=
+            '<text x="' +
+            (c - 8) +
+            '" y="' +
+            (Y(i) + 4) +
+            '" text-anchor="end" font-size="12" fill="#27323f">' +
+            label +
+            "</text>";
+        }
+
+        // titik pusat (0,0)
+        s += '<circle cx="' + c + '" cy="' + c + '" r="4" fill="#27323f"/>';
+        s +=
+          '<text x="' +
+          (c + 6) +
+          '" y="' +
+          (c - 6) +
+          '" font-size="11" font-weight="bold" fill="#27323f">(0,0)</text>';
+
+        // garis penghubung
+        (spec.segs || []).forEach((sg) => {
+          const a = spec.points[sg[0]],
+            b = spec.points[sg[1]];
+          s +=
+            '<line x1="' +
+            X(a.x) +
+            '" y1="' +
+            Y(a.y) +
+            '" x2="' +
+            X(b.x) +
+            '" y2="' +
+            Y(b.y) +
+            '" stroke="#fb8c00" stroke-width="3.5" stroke-linecap="round"/>';
+        });
+
+        // titik-titik
+        (spec.points || []).forEach((p, i) => {
+          const col = PT_COLORS[i % PT_COLORS.length],
+            px = X(p.x),
+            py = Y(p.y);
+          if (reveal) {
+            s +=
+              '<line x1="' +
+              px +
+              '" y1="' +
+              py +
+              '" x2="' +
+              px +
+              '" y2="' +
+              c +
+              '" stroke="' +
+              col +
+              '" stroke-width="1.6" stroke-dasharray="5 4"/>';
+            s +=
+              '<line x1="' +
+              px +
+              '" y1="' +
+              py +
+              '" x2="' +
+              c +
+              '" y2="' +
+              py +
+              '" stroke="' +
+              col +
+              '" stroke-width="1.6" stroke-dasharray="5 4"/>';
+          }
+          s +=
+            '<circle cx="' +
+            px +
+            '" cy="' +
+            py +
+            '" r="7" fill="' +
+            col +
+            '" stroke="#fff" stroke-width="2.5"/>';
+          const lx = Math.min(Math.max(px + 10, 14), S - 30),
+            ly = Math.max(py - 10, 18);
+          s +=
+            '<text x="' +
+            lx +
+            '" y="' +
+            ly +
+            '" font-size="17" font-weight="bold" fill="' +
+            col +
+            '" style="paint-order:stroke;stroke:#fff;stroke-width:4px">' +
+            p.label +
+            "</text>";
+          if (reveal) {
+            const txt = minusFix("(" + p.x + ", " + p.y + ")");
+            const tx = Math.min(Math.max(px, 40), S - 40),
+              ty = Math.min(py + 24, S - 6);
+            s +=
+              '<text x="' +
+              tx +
+              '" y="' +
+              ty +
+              '" text-anchor="middle" font-size="12" font-weight="bold" fill="#27323f" style="paint-order:stroke;stroke:#fff;stroke-width:4px">' +
+              txt +
+              "</text>";
+          }
+        });
+        return s + "</svg>";
+      }
+
+      /* =====================================================
+   BAGIAN C – ILUSTRASI KARTUN (SVG inline, tanpa aset luar)
+   ===================================================== */
+      const ART = {
+        adventurer: function () {
+          return (
+            '<svg viewBox="0 0 80 120"><ellipse cx="40" cy="115" rx="24" ry="4" fill="rgba(0,0,0,.2)"/>' +
+            '<rect x="27" y="80" width="11" height="28" rx="4" fill="#3b5ba5"/><rect x="42" y="80" width="11" height="28" rx="4" fill="#3b5ba5"/>' +
+            '<rect x="24" y="104" width="16" height="9" rx="4" fill="#5d3a17"/><rect x="40" y="104" width="16" height="9" rx="4" fill="#5d3a17"/>' +
+            '<rect x="53" y="50" width="15" height="30" rx="6" fill="#8a5a2b"/>' +
+            '<rect x="22" y="48" width="36" height="38" rx="11" fill="#ef6c00"/>' +
+            '<rect x="11" y="52" width="12" height="28" rx="6" fill="#ef6c00"/><rect x="57" y="52" width="12" height="28" rx="6" fill="#ef6c00"/>' +
+            '<circle cx="17" cy="82" r="6" fill="#ffd7a8"/><circle cx="63" cy="82" r="6" fill="#ffd7a8"/>' +
+            '<circle cx="40" cy="34" r="17" fill="#ffd7a8"/>' +
+            '<circle cx="34" cy="35" r="2.6" fill="#27323f"/><circle cx="46" cy="35" r="2.6" fill="#27323f"/>' +
+            '<path d="M33 43 Q40 50 47 43" stroke="#27323f" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+            '<ellipse cx="40" cy="24" rx="28" ry="7" fill="#c8a24a"/><path d="M23 24 Q40 -2 57 24Z" fill="#dcb85d"/>' +
+            '<rect x="24" y="19" width="32" height="5" fill="#8a5a2b"/></svg>'
+          );
+        },
+        chest: function (open) {
+          let s = '<svg viewBox="0 0 120 100">';
+          if (open) {
+            s +=
+              '<g opacity=".55" stroke="#ffe082" stroke-width="4" stroke-linecap="round"><line x1="60" y1="40" x2="60" y2="2"/><line x1="40" y1="42" x2="18" y2="12"/><line x1="80" y1="42" x2="102" y2="12"/><line x1="28" y1="50" x2="4" y2="38"/><line x1="92" y1="50" x2="116" y2="38"/></g>';
+          }
+          s +=
+            '<rect x="18" y="48" width="84" height="42" rx="7" fill="#8a5a2b" stroke="#5d3a17" stroke-width="3"/>';
+          s +=
+            '<rect x="52" y="48" width="16" height="42" fill="#ffc83d" stroke="#b78400" stroke-width="2"/>';
+          if (open) {
+            s += '<ellipse cx="60" cy="48" rx="38" ry="8" fill="#ffd54f"/>';
+            [
+              [36, 44],
+              [50, 40],
+              [66, 41],
+              [80, 45],
+              [58, 46],
+              [44, 48],
+            ].forEach((p) => {
+              s +=
+                '<circle cx="' +
+                p[0] +
+                '" cy="' +
+                p[1] +
+                '" r="7" fill="#ffca28" stroke="#b78400" stroke-width="2"/>';
+            });
+            s +=
+              '<g transform="rotate(-48 18 48)"><path d="M18 48 Q18 18 60 18 Q102 18 102 48Z" fill="#a0692f" stroke="#5d3a17" stroke-width="3"/><rect x="52" y="19" width="16" height="29" fill="#ffc83d" stroke="#b78400" stroke-width="2"/></g>';
+          } else {
+            s +=
+              '<path d="M18 48 Q18 14 60 14 Q102 14 102 48Z" fill="#a0692f" stroke="#5d3a17" stroke-width="3"/>';
+            s +=
+              '<rect x="52" y="14" width="16" height="34" fill="#ffc83d" stroke="#b78400" stroke-width="2"/>';
+            s +=
+              '<circle cx="60" cy="52" r="6" fill="#ffe082" stroke="#b78400" stroke-width="2"/>';
+          }
+          return s + "</svg>";
+        },
+        palm: function (x, y, sc) {
+          return (
+            '<g transform="translate(' +
+            x +
+            "," +
+            y +
+            ") scale(" +
+            sc +
+            ')"><path d="M0 0 Q10 -40 4 -80" stroke="#8a5a2b" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+            '<g fill="#2ea64f"><ellipse cx="-22" cy="-82" rx="28" ry="9" transform="rotate(-25 4 -80)"/><ellipse cx="30" cy="-82" rx="28" ry="9" transform="rotate(25 4 -80)"/>' +
+            '<ellipse cx="-14" cy="-96" rx="26" ry="8" transform="rotate(-60 4 -80)"/><ellipse cx="22" cy="-96" rx="26" ry="8" transform="rotate(60 4 -80)"/><ellipse cx="4" cy="-96" rx="8" ry="24"/></g>' +
+            '<circle cx="-2" cy="-78" r="5" fill="#6d4c1f"/><circle cx="9" cy="-76" r="5" fill="#6d4c1f"/></g>'
+          );
+        },
+        scene: function () {
+          return (
+            '<svg viewBox="0 0 640 290">' +
+            '<ellipse cx="320" cy="238" rx="300" ry="50" fill="#ffe6a7" stroke="#e0c070" stroke-width="5"/>' +
+            '<ellipse cx="320" cy="228" rx="250" ry="34" fill="#8fdc7a" opacity=".75"/>' +
+            ART.palm(120, 222, 1) +
+            ART.palm(520, 226, 1.1) +
+            ART.palm(190, 236, 0.7) +
+            '<g transform="translate(70,120) scale(1.1)">' +
+            ART.adventurer().replace(
+              '<svg viewBox="0 0 80 120">',
+              '<svg viewBox="0 0 80 120" width="80" height="120">',
+            ) +
+            "</g>" +
+            '<g transform="translate(262,168)"><rect x="0" y="0" width="120" height="76" rx="8" fill="#f6e3b0" stroke="#b78a3a" stroke-width="4"/>' +
+            '<path d="M16 60 Q40 20 66 44 T104 16" stroke="#8a5a2b" stroke-width="3" fill="none" stroke-dasharray="6 5"/>' +
+            '<text x="96" y="30" font-size="30" font-weight="bold" fill="#e53935">X</text></g>' +
+            '<g transform="translate(420,150)"><svg width="110" height="92" viewBox="0 0 120 100">' +
+            ART.chest(false)
+              .replace(/^<svg[^>]*>/, "")
+              .replace(/<\/svg>$/, "") +
+            "</svg></g>" +
+            "</svg>"
+          );
+        },
+      };
+
+      /* =====================================================
+   BAGIAN D – STATUS GAME, SUARA, & UTILITAS
+   ===================================================== */
+      const STORE_KEY = "petualangan_kartesius_v1";
+      let player = { nama: "", kelas: "", absen: "" };
+      let answers = new Array(20).fill(null); // {given, correct} per soal
+      let currentIndex = 0; // indeks soal aktif (0–19)
+      let selectedValue = null;
+      let locked = false; // true setelah soal dijawab
+
+      const $ = (id) => document.getElementById(id);
+      function esc(s) {
+        return String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+
+      /* ---- Penyimpanan progres sementara (localStorage) ---- */
+      function saveProgress() {
+        try {
+          localStorage.setItem(STORE_KEY, JSON.stringify({ player, answers }));
+        } catch (e) {}
+      }
+      function loadProgress() {
+        try {
+          const d = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+          if (
+            d &&
+            Array.isArray(d.answers) &&
+            d.answers.length === 20 &&
+            d.player
+          )
+            return d;
+        } catch (e) {}
+        return null;
+      }
+      function clearProgress() {
+        try {
+          localStorage.removeItem(STORE_KEY);
+        } catch (e) {}
+      }
+
+      /* ---- Efek suara sederhana (Web Audio API, tanpa file luar) ---- */
+      let soundOn = true,
+        audioCtx = null;
+      try {
+        if (localStorage.getItem("pmhk_sound") === "off") soundOn = false;
+      } catch (e) {}
+      function beep(freqs, dur, type) {
+        if (!soundOn) return;
+        try {
+          audioCtx =
+            audioCtx ||
+            new (window.AudioContext || window.webkitAudioContext)();
+          const t0 = audioCtx.currentTime;
+          freqs.forEach((f, i) => {
+            const o = audioCtx.createOscillator(),
+              g = audioCtx.createGain();
+            o.type = type || "sine";
+            o.frequency.value = f;
+            g.gain.setValueAtTime(0.15, t0 + i * dur);
+            g.gain.exponentialRampToValueAtTime(0.001, t0 + i * dur + dur);
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.start(t0 + i * dur);
+            o.stop(t0 + i * dur + dur);
+          });
+        } catch (e) {}
+      }
+      const SFX = {
+        click: () => beep([520], 0.06, "triangle"),
+        good: () => beep([523, 659, 784], 0.12),
+        bad: () => beep([300, 220], 0.18, "sawtooth"),
+        win: () => beep([523, 659, 784, 1047, 1319], 0.15),
+      };
+      function updateSoundBtn() {
+        $("btnSound").textContent = soundOn ? "🔊" : "🔇";
+      }
+
+      /* ---- Toast & konfeti ---- */
+      let toastTimer = null;
+      function toast(msg) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+      }
+      function confetti() {
+        const colors = [
+          "#ffc83d",
+          "#ef5350",
+          "#42a5f5",
+          "#66bb6a",
+          "#ab47bc",
+          "#ff7043",
+        ];
+        for (let i = 0; i < 40; i++) {
+          const d = document.createElement("div");
+          d.className = "confetti";
+          d.style.left = Math.random() * 100 + "vw";
+          d.style.background = colors[i % colors.length];
+          d.style.setProperty("--dx", Math.random() * 160 - 80 + "px");
+          d.style.animationDuration = 1.4 + Math.random() * 1.4 + "s";
+          d.style.animationDelay = Math.random() * 0.3 + "s";
+          $("fx").appendChild(d);
+          setTimeout(() => d.remove(), 3400);
+        }
+      }
+
+      /* ---- Navigasi antar layar ---- */
+      function show(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        if (id === "screen-map") renderMap();
+        if (id === "screen-review") renderReview();
+        if (id === "screen-identity") prefillIdentity();
+        if (id === "screen-opening") refreshContinueButton();
+        $(id).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* ---- Fungsi bantu level ---- */
+      const levelQuestions = (L) => QUESTIONS.filter((q) => q.level === L);
+      const levelDone = (L) =>
+        levelQuestions(L).every((q) => answers[q.id - 1]);
+      const levelUnlocked = (L) => L === 1 || levelDone(L - 1);
+      const firstUnanswered = (L) =>
+        QUESTIONS.find((q) => q.level === L && !answers[q.id - 1]);
+      const allDone = () => answers.every(Boolean);
+
+      /* =====================================================
+   BAGIAN E – HALAMAN-HALAMAN
+   ===================================================== */
+
+      /* ---- Halaman pembuka ---- */
+      function refreshContinueButton() {
+        const saved = loadProgress();
+        const has = saved && saved.answers.some(Boolean);
+        $("btnContinue").hidden = !has;
+      }
+
+      /* ---- Identitas pemain ---- */
+      function prefillIdentity() {
+        $("inNama").value = player.nama || "";
+        $("inKelas").value = player.kelas || "";
+        $("inAbsen").value = player.absen || "";
+        $("idError").textContent = "";
+      }
+      function submitIdentity(e) {
+        e.preventDefault();
+        const nama = $("inNama").value.trim(),
+          kelas = $("inKelas").value.trim(),
+          absen = $("inAbsen").value.trim();
+        if (nama.length < 2) {
+          $("idError").textContent = "Nama peserta didik wajib diisi.";
+          $("inNama").focus();
+          SFX.bad();
+          return;
+        }
+        if (!kelas) {
+          $("idError").textContent = "Kelas wajib diisi.";
+          $("inKelas").focus();
+          SFX.bad();
+          return;
+        }
+        const begin = () => {
+          player = { nama, kelas, absen };
+          answers = new Array(20).fill(null);
+          saveProgress();
+          SFX.good();
+          show("screen-map");
+        };
+        if (answers.some(Boolean))
+          askConfirm(
+            "Mulai petualangan baru?",
+            "Progres sebelumnya akan dihapus.",
+            "Ya, mulai baru",
+            begin,
+          );
+        else begin();
+      }
+
+      /* ---- Peta petualangan ---- */
+      function renderMap() {
+        const res = computeResult(answers);
+        $("mapPlayer").textContent =
+          "⚓ " + player.nama + " • Kelas " + player.kelas;
+        $("mapScore").textContent = res.score;
+        $("mapProgress").style.width = (res.answered / 20) * 100 + "%";
+        $("mapProgressText").textContent =
+          res.answered + " dari 20 soal terjawab";
+
+        const cur = LEVELS.find((l) => !levelDone(l.n));
+        const curN = cur ? cur.n : 4;
+        const pos = [
+          [130, 320],
+          [330, 170],
+          [530, 280],
+          [670, 120],
+        ];
+
+        let s =
+          '<svg viewBox="0 0 800 430" id="mapSvg" role="img" aria-label="Peta pulau menuju harta karun">';
+        s +=
+          '<path d="M40 330 Q60 150 250 90 Q450 20 640 50 Q780 90 770 250 Q760 400 520 405 Q250 420 100 390 Q30 380 40 330Z" fill="#ffe6a7" stroke="#e0c070" stroke-width="6"/>';
+        s +=
+          '<path d="M80 320 Q95 180 260 125 Q450 70 630 90 Q740 120 735 240 Q725 370 520 372 Q270 385 130 360 Q75 350 80 320Z" fill="#8fdc7a" opacity=".7"/>';
+        s += ART.palm(70, 395, 0.8) + ART.palm(750, 330, 0.8);
+        s +=
+          '<path d="M130,320 C200,120 260,120 330,170 S450,330 530,280 S620,120 670,120" stroke="#8a5a2b" stroke-width="6" fill="none" stroke-dasharray="14 10" stroke-linecap="round"/>';
+        // peti harta karun di ujung rute
+        s +=
+          '<svg x="676" y="26" width="76" height="64" viewBox="0 0 120 100">' +
+          ART.chest(allDone())
+            .replace(/^<svg[^>]*>/, "")
+            .replace(/<\/svg>$/, "") +
+          "</svg>";
+        s +=
+          '<text x="718" y="108" font-size="22" font-weight="bold" fill="#e53935" text-anchor="middle">X</text>';
+
+        LEVELS.forEach((l, i) => {
+          const [x, y] = pos[i];
+          const done = levelDone(l.n),
+            unlocked = levelUnlocked(l.n);
+          const fill = done ? "#35c46a" : unlocked ? "#ffc83d" : "#b0bec5";
+          const mark = done ? "✓" : unlocked ? String(l.n) : "🔒";
+          s += '<g class="map-node" data-level="' + l.n + '">';
+          s +=
+            '<circle class="base ' +
+            (unlocked && !done ? "pulse" : "") +
+            '" cx="' +
+            x +
+            '" cy="' +
+            y +
+            '" r="32" fill="' +
+            fill +
+            '" stroke="#5d3a17" stroke-width="5"/>';
+          s +=
+            '<text x="' +
+            x +
+            '" y="' +
+            (y + 10) +
+            '" text-anchor="middle" font-size="' +
+            (unlocked || done ? "28" : "24") +
+            '" font-weight="bold" fill="#27323f">' +
+            mark +
+            "</text>";
+          s +=
+            '<text x="' +
+            x +
+            '" y="' +
+            (y + 58) +
+            '" text-anchor="middle" font-size="18" font-weight="bold" fill="#5d3a17">Level ' +
+            l.n +
+            "</text>";
+          s += "</g>";
+        });
+        // petualang di level aktif
+        const [ax, ay] = pos[curN - 1];
+        if (!allDone()) {
+          s +=
+            '<g class="bob"><svg x="' +
+            (ax - 18) +
+            '" y="' +
+            (ay - 98) +
+            '" width="36" height="54" viewBox="0 0 80 120">' +
+            ART.adventurer()
+              .replace(/^<svg[^>]*>/, "")
+              .replace(/<\/svg>$/, "") +
+            "</svg></g>";
+        }
+        s += "</svg>";
+        $("mapSvgHolder").innerHTML = s;
+        $("mapSvgHolder")
+          .querySelectorAll("[data-level]")
+          .forEach((g) =>
+            g.addEventListener("click", () => openLevel(+g.dataset.level)),
+          );
+
+        // kartu level
+        $("levelCards").innerHTML = LEVELS.map((l) => {
+          const done = levelDone(l.n),
+            unlocked = levelUnlocked(l.n);
+          const answeredN = levelQuestions(l.n).filter(
+            (q) => answers[q.id - 1],
+          ).length;
+          const state = done
+            ? "✅ Selesai"
+            : unlocked
+              ? "▶ " + answeredN + "/5 soal — Ayo main!"
+              : "🔒 Terkunci";
+          return (
+            '<button type="button" class="lv-card ' +
+            (done ? "done" : unlocked ? "" : "locked") +
+            '" data-level="' +
+            l.n +
+            '">' +
+            "<h3>" +
+            l.icon +
+            " LEVEL " +
+            l.n +
+            " – " +
+            esc(l.title) +
+            "</h3><p>" +
+            esc(l.desc) +
+            '</p><div class="lv-state">' +
+            state +
+            "</div></button>"
+          );
+        }).join("");
+        $("levelCards")
+          .querySelectorAll("[data-level]")
+          .forEach((b) =>
+            b.addEventListener("click", () => openLevel(+b.dataset.level)),
+          );
+        $("btnToResult").hidden = !allDone();
+      }
+
+      function openLevel(L) {
+        SFX.click();
+        if (!levelUnlocked(L)) {
+          toast("🔒 Selesaikan level sebelumnya terlebih dahulu!");
+          SFX.bad();
+          return;
+        }
+        if (levelDone(L)) {
+          toast("✅ Level ini sudah selesai. Lanjutkan ke level berikutnya!");
+          return;
+        }
+        currentIndex = firstUnanswered(L).id - 1;
+        show("screen-quiz");
+        renderQuestion();
+      }
+
+      /* ---- Kuis: tampilan soal ---- */
+      function updateHud() {
+        const res = computeResult(answers);
+        $("hudScore").textContent = res.score;
+        $("hudProgress").style.width = (res.answered / 20) * 100 + "%";
+      }
+      function renderQuestion() {
+        const q = QUESTIONS[currentIndex];
+        selectedValue = null;
+        locked = false;
+        $("hudLevel").textContent =
+          "Level " + q.level + " – " + LEVELS[q.level - 1].title;
+        updateHud();
+        $("qNumber").textContent = "Soal " + q.id + " dari 20";
+        $("qType").textContent =
+          q.type === "mc" ? "Pilihan Ganda" : "Isian Singkat";
+        $("qText").textContent = q.text;
+        $("feedback").className = "feedback hidden";
+        $("feedback").innerHTML = "";
+        $("quizLayout").classList.toggle("has-plot", !!q.plot);
+        $("qPlot").innerHTML = q.plot ? planeSVG(q.plot, false) : "";
+
+        let html = "";
+        if (q.type === "mc") {
+          const opts = q.noShuffle ? q.options.slice() : shuffle(q.options); // acak pilihan; kunci dicocokkan berdasarkan teks
+          html =
+            '<div class="options">' +
+            opts
+              .map(
+                (o, i) =>
+                  '<button type="button" class="opt" data-value="' +
+                  esc(o) +
+                  '"><span class="letter">' +
+                  "ABCD"[i] +
+                  "</span><span>" +
+                  esc(o) +
+                  "</span></button>",
+              )
+              .join("") +
+            "</div>";
+        } else {
+          html =
+            '<input id="ansInput" class="ans-input" type="text" autocomplete="off" autocapitalize="off" placeholder="' +
+            esc(q.placeholder || "Ketik jawabanmu") +
+            '" aria-label="Jawaban">';
+        }
+        $("qAnswer").innerHTML = html;
+        $("btnAnswer").disabled = true;
+        $("btnAnswer").hidden = false;
+
+        if (q.type === "mc") {
+          $("qAnswer")
+            .querySelectorAll(".opt")
+            .forEach((b) =>
+              b.addEventListener("click", () => {
+                if (locked) return;
+                SFX.click();
+                $("qAnswer")
+                  .querySelectorAll(".opt")
+                  .forEach((x) => x.classList.remove("selected"));
+                b.classList.add("selected");
+                selectedValue = b.dataset.value;
+                $("btnAnswer").disabled = false;
+              }),
+            );
+        } else {
+          const inp = $("ansInput");
+          inp.addEventListener("input", () => {
+            selectedValue = inp.value.trim();
+            $("btnAnswer").disabled = selectedValue === "";
+          });
+          inp.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" && !$("btnAnswer").disabled) submitAnswer();
+          });
+          setTimeout(() => inp.focus({ preventScroll: true }), 300);
+        }
+      }
+
+      /* ---- Kuis: memeriksa jawaban & feedback ---- */
+      const PRAISE = [
+        "Hebat! Jawabanmu tepat! 🎉",
+        "Luar biasa! Kamu semakin dekat dengan harta karun! 💎",
+        "Keren! Kamu jago koordinat! ⭐",
+        "Mantap! Pertahankan ya! 🏴‍☠️",
+      ];
+      const CORRECTION = [
+        "Belum tepat, tapi jangan menyerah!",
+        "Hampir! Mari pelajari jawaban yang benar.",
+        "Tidak apa-apa, ayo pahami konsepnya!",
+      ];
+
+      function submitAnswer() {
+        if (locked || selectedValue === null || selectedValue === "") return;
+        locked = true;
+        const q = QUESTIONS[currentIndex];
+        const ok = isCorrect(q, selectedValue);
+        answers[currentIndex] = { given: selectedValue, correct: ok };
+        saveProgress();
+        updateHud();
+
+        // tandai tampilan jawaban
+        if (q.type === "mc") {
+          $("qAnswer")
+            .querySelectorAll(".opt")
+            .forEach((b) => {
+              b.disabled = true;
+              if (b.dataset.value === q.answer) b.classList.add("correct");
+              else if (b.dataset.value === selectedValue)
+                b.classList.add("wrong");
+              b.classList.remove("selected");
+            });
+        } else {
+          const inp = $("ansInput");
+          inp.disabled = true;
+          inp.classList.add(ok ? "correct" : "wrong");
+        }
+        $("btnAnswer").hidden = true;
+        if (q.plot) $("qPlot").innerHTML = planeSVG(q.plot, true); // tampilkan koordinat & garis bantu
+
+        const isLast = !firstUnanswered(q.level);
+        const nextLabel = isLast
+          ? "🏁 SELESAIKAN LEVEL " + q.level
+          : "SOAL BERIKUTNYA ➜";
+        const fb = $("feedback");
+        if (ok) {
+          fb.className = "feedback good";
+          fb.innerHTML =
+            '<div class="fb-title">' +
+            PRAISE[Math.floor(Math.random() * PRAISE.length)] +
+            " (+10 poin)</div>" +
+            "<p><b>Pembahasan:</b> " +
+            q.explanation +
+            '</p><button type="button" class="btn green" id="btnNext">' +
+            nextLabel +
+            "</button>";
+          SFX.good();
+          confetti();
+        } else {
+          fb.className = "feedback bad";
+          fb.innerHTML =
+            '<div class="fb-title">' +
+            CORRECTION[Math.floor(Math.random() * CORRECTION.length)] +
+            " (+0 poin)</div>" +
+            "<p>Jawaban yang benar: <b>" +
+            esc(answerText(q)) +
+            "</b></p>" +
+            "<p><b>Pembahasan:</b> " +
+            q.explanation +
+            '</p><button type="button" class="btn green" id="btnNext">' +
+            nextLabel +
+            "</button>";
+          SFX.bad();
+        }
+        $("btnNext").addEventListener("click", nextQuestion);
+        setTimeout(
+          () => fb.scrollIntoView({ behavior: "smooth", block: "center" }),
+          150,
+        );
+      }
+
+      function nextQuestion() {
+        SFX.click();
+        const q = QUESTIONS[currentIndex];
+        const nxt = firstUnanswered(q.level);
+        if (nxt) {
+          currentIndex = nxt.id - 1;
+          renderQuestion();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else showLevelDone(q.level);
+      }
+
+      /* ---- Level selesai ---- */
+      function showLevelDone(L) {
+        const benar = levelQuestions(L).filter(
+          (q) => answers[q.id - 1] && answers[q.id - 1].correct,
+        ).length;
+        $("levelDoneArt").innerHTML =
+          L < 4 ? ART.adventurer() : ART.chest(false);
+        $("levelDoneTitle").textContent = "🎊 Level " + L + " Selesai!";
+        $("levelDoneText").innerHTML =
+          "Kamu menjawab benar <b>" +
+          benar +
+          " dari 5</b> soal.<br>" +
+          (L < 4
+            ? "Level " +
+              (L + 1) +
+              " – " +
+              esc(LEVELS[L].title) +
+              " sudah terbuka!"
+            : "Semua tantangan selesai! Saatnya membuka peti harta karun!");
+        const b = $("btnLevelNext");
+        b.textContent =
+          L < 4 ? "🗺️ KEMBALI KE PETA" : "🏴‍☠️ BUKA PETI HARTA KARUN";
+        b.onclick = () => {
+          SFX.click();
+          L < 4 ? show("screen-map") : showResult();
+        };
+        show("screen-leveldone");
+        SFX.win();
+        confetti();
+      }
+
+      /* ---- Hasil asesmen ---- */
+      function motivationFor(cat) {
+        switch (cat) {
+          case "Sangat Baik":
+            return "Fantastis! Kamu menguasai koordinat Kartesius dengan sangat baik. Kamu layak disebut kapten petualang sejati! 🏆";
+          case "Baik":
+            return "Kerja bagus! Pemahamanmu sudah baik. Sedikit latihan lagi, kamu bisa mencapai nilai sempurna! 🌟";
+          case "Cukup":
+            return "Lumayan! Kamu sudah memahami sebagian besar konsep. Pelajari lagi pembahasannya agar lebih mantap. 💪";
+          default:
+            return "Jangan menyerah! Setiap petualang pasti pernah tersesat. Pelajari pembahasan, lalu coba ulangi permainannya. 📚";
+        }
+      }
+      function showResult() {
+        if (!allDone()) {
+          toast("Selesaikan semua level terlebih dahulu.");
+          show("screen-map");
+          return;
+        }
+        const r = computeResult(answers);
+        const absen = player.absen
+          ? "<tr><td>No. Absen</td><td>: " + esc(player.absen) + "</td></tr>"
+          : "";
+        $("resultCard").innerHTML =
+          '<div class="big-icon">' +
+          ART.chest(true) +
+          "</div>" +
+          "<h2>🏆 Hasil Asesmen</h2>" +
+          '<table class="id-table"><tr><td>Nama</td><td>: ' +
+          esc(player.nama) +
+          "</td></tr><tr><td>Kelas</td><td>: " +
+          esc(player.kelas) +
+          "</td></tr>" +
+          absen +
+          "</table>" +
+          '<div style="margin-top:14px">Nilai Akhir</div><div class="nilai">' +
+          r.nilai +
+          "</div>" +
+          '<div class="cat ' +
+          r.cls +
+          '">' +
+          r.category +
+          "</div>" +
+          '<div class="result-grid">' +
+          '<div class="stat"><div class="v">' +
+          r.correct +
+          '</div><div class="l">Jawaban Benar</div></div>' +
+          '<div class="stat"><div class="v">' +
+          r.wrong +
+          '</div><div class="l">Jawaban Salah</div></div>' +
+          '<div class="stat"><div class="v">' +
+          r.score +
+          ' / 200</div><div class="l">Skor Total</div></div>' +
+          '<div class="stat"><div class="v">' +
+          r.percent +
+          '%</div><div class="l">Persentase Ketuntasan</div></div>' +
+          "</div>" +
+          '<div class="motivasi">' +
+          motivationFor(r.category) +
+          "</div>" +
+          '<div class="btn-row">' +
+          '<button class="btn blue" id="btnReview">📖 LIHAT PEMBAHASAN</button>' +
+          '<button class="btn green" id="btnCopy">📋 SALIN HASIL</button>' +
+          '<button class="btn" id="btnReplay">🔄 ULANGI PERMAINAN</button>' +
+          '<button class="btn gray" id="btnHome">🏠 Beranda</button>' +
+          "</div>";
+        $("btnReview").onclick = () => {
+          SFX.click();
+          show("screen-review");
+        };
+        $("btnCopy").onclick = copyResult;
+        $("btnReplay").onclick = replayGame;
+        $("btnHome").onclick = () => {
+          SFX.click();
+          show("screen-opening");
+        };
+        show("screen-result");
+        SFX.win();
+        confetti();
+      }
+      function replayGame() {
+        SFX.click();
+        askConfirm(
+          "Ulangi permainan?",
+          "Hasil sebelumnya akan dihapus dan kamu mulai dari Level 1.",
+          "Ya, ulangi",
+          () => {
+            answers = new Array(20).fill(null);
+            saveProgress();
+            show("screen-map");
+          },
+        );
+      }
+
+      /* ---- Pembahasan ---- */
+      function renderReview() {
+        $("reviewList").innerHTML = QUESTIONS.map((q) => {
+          const a = answers[q.id - 1];
+          const status = a ? (a.correct ? "ok" : "no") : "";
+          const given = a ? esc(minusFix(a.given)) : "(belum dijawab)";
+          return (
+            '<div class="rev-item ' +
+            status +
+            '">' +
+            '<div class="rev-head"><b>Soal ' +
+            q.id +
+            " • Level " +
+            q.level +
+            "</b><span>" +
+            (a ? (a.correct ? "✅ Benar (+10)" : "❌ Salah (0)") : "—") +
+            "</span></div>" +
+            "<p>" +
+            esc(q.text) +
+            "</p>" +
+            (q.plot
+              ? '<div class="rev-plot">' + planeSVG(q.plot, true) + "</div>"
+              : "") +
+            "<p>Jawabanmu: <b>" +
+            given +
+            "</b></p>" +
+            "<p>Kunci jawaban: <b>" +
+            esc(answerText(q)) +
+            "</b></p>" +
+            "<p><b>Pembahasan:</b> " +
+            q.explanation +
+            "</p></div>"
+          );
+        }).join("");
+      }
+
+      /* ---- Dialog dalam halaman ---- */
+      function openModal(title, bodyHtml, buttons) {
+        $("modalTitle").textContent = title;
+        $("modalBody").innerHTML = bodyHtml;
+        const row = $("modalBtns");
+        row.innerHTML = "";
+        buttons.forEach((b) => {
+          const el = document.createElement("button");
+          el.type = "button";
+          el.className = "btn " + (b.cls || "");
+          el.textContent = b.label;
+          el.addEventListener("click", () => {
+            closeModal();
+            SFX.click();
+            if (b.onClick) b.onClick();
+          });
+          row.appendChild(el);
+        });
+        $("modal").hidden = false;
+      }
+      function closeModal() {
+        $("modal").hidden = true;
+      }
+      function askConfirm(title, msg, yesLabel, onYes) {
+        openModal(title, "<p>" + esc(msg) + "</p>", [
+          { label: yesLabel, cls: "green", onClick: onYes },
+          { label: "Batal", cls: "gray" },
+        ]);
+      }
+
+      /* ---- Salin hasil ke clipboard ---- */
+      function resultText() {
+        const r = computeResult(answers);
+        const lines = [
+          "HASIL ASESMEN – Petualangan Mencari Harta Karun (Koordinat Kartesius, Kelas VIII)",
+          "Nama: " + player.nama,
+          "Kelas: " + player.kelas,
+        ];
+        if (player.absen) lines.push("No. Absen: " + player.absen);
+        lines.push(
+          "Jawaban benar: " + r.correct,
+          "Jawaban salah: " + r.wrong,
+          "Skor total: " + r.score + " / 200",
+          "Nilai akhir: " + r.nilai,
+          "Persentase ketuntasan: " + r.percent + "%",
+          "Kategori: " + r.category,
+          "",
+        );
+        LEVELS.forEach((l) => {
+          const b = levelQuestions(l.n).filter(
+            (q) => answers[q.id - 1] && answers[q.id - 1].correct,
+          ).length;
+          lines.push("Level " + l.n + " – " + l.title + ": " + b + "/5 benar");
+        });
+        return lines.join("\n");
+      }
+      function copyResult() {
+        SFX.click();
+        const text = resultText();
+        const fallback = () => {
+          openModal(
+            "Salin Hasil",
+            '<p>Pilih lalu salin teks berikut.</p><textarea id="copyArea" readonly></textarea>',
+            [{ label: "Tutup", cls: "gray" }],
+          );
+          const ta = $("copyArea");
+          ta.value = text;
+          ta.focus();
+          ta.select();
+        };
+        try {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => toast("📋 Hasil disalin"), fallback);
+        } catch (e) {
+          fallback();
+        }
+      }
+
+      /* =====================================================
+   BAGIAN F – INISIALISASI & PENGHUBUNG TOMBOL
+   ===================================================== */
+      function init() {
+        $("openingScene").innerHTML = ART.scene();
+
+        // pulihkan progres tersimpan (jika ada)
+        const saved = loadProgress();
+        if (saved) {
+          player = saved.player;
+          answers = saved.answers;
+        }
+        refreshContinueButton();
+        updateSoundBtn();
+
+        // tombol navigasi umum: atribut data-go
+        document.addEventListener("click", (e) => {
+          const b = e.target.closest("[data-go]");
+          if (b) {
+            SFX.click();
+            show(b.dataset.go);
+          }
+        });
+
+        $("identityForm").addEventListener("submit", submitIdentity);
+        $("btnAnswer").addEventListener("click", submitAnswer);
+        $("btnToMap").addEventListener("click", () => {
+          SFX.click();
+          show("screen-map");
+        });
+        $("btnToResult").addEventListener("click", () => {
+          SFX.click();
+          showResult();
+        });
+        $("btnContinue").addEventListener("click", () => {
+          SFX.click();
+          const s = loadProgress();
+          if (s) {
+            player = s.player;
+            answers = s.answers;
+          }
+          allDone() ? showResult() : show("screen-map");
+        });
+        $("btnSound").addEventListener("click", () => {
+          soundOn = !soundOn;
+          try {
+            localStorage.setItem("pmhk_sound", soundOn ? "on" : "off");
+          } catch (e) {}
+          updateSoundBtn();
+          SFX.click();
+          toast(soundOn ? "🔊 Suara aktif" : "🔇 Suara dimatikan");
+        });
+      }
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
