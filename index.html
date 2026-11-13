@@ -1,11 +1,12 @@
 <!doctype html>
-<html>
+<html lang="id">
   <head>
-    <meta charset="utf8" />
+    <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
+    <title>Petualangan Mencari Harta Karun</title>
     <style>
       :root {
         color-scheme: light;
@@ -16,34 +17,16 @@
       html {
         scroll-padding-top: env(safe-area-inset-top, 0px);
       }
-      body {
-        margin: 0;
-        padding: 0;
-        font:
-          14px -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
-        background: #fff;
-        color: #000;
-      }
       img {
         max-width: 100%;
       }
       [hidden]:not([hidden="until-found" i]) {
         display: none !important;
       }
-    </style>
-  </head>
-  <body>
-    <title>Petualangan Mencari Harta Karun</title>
-    <meta name="claude:viewport-fit-sides" content="cover" />
-    <style>
       /* =====================================================
    PETUALANGAN MENCARI HARTA KARUN – Media Asesmen Matematika
    Materi: Koordinat Kartesius (SMP/MTs Kelas VIII)
    ===================================================== */
-
-      /* ---------- 1. Dasar & variabel warna ---------- */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -86,8 +69,7 @@
       h3 {
         line-height: 1.2;
       }
-
-      /* ---------- 2. Latar belakang animasi (awan & ombak) ---------- */
+      /* awan & ombak */
       .clouds span {
         position: fixed;
         top: 8%;
@@ -158,8 +140,7 @@
           transform: translateX(-50%);
         }
       }
-
-      /* ---------- 3. Layar (screen) & transisi ---------- */
+      /* layar */
       #app {
         position: relative;
         z-index: 1;
@@ -186,8 +167,7 @@
           transform: none;
         }
       }
-
-      /* ---------- 4. Komponen umum ---------- */
+      /* komponen */
       .card {
         background: var(--paper);
         border: 4px solid var(--wood);
@@ -310,8 +290,7 @@
         opacity: 1;
         transform: translate(-50%, 0);
       }
-
-      /* ---------- 5. Halaman pembuka ---------- */
+      /* pembuka */
       .hero {
         text-align: center;
         padding-top: 30px;
@@ -382,8 +361,7 @@
         width: 38%;
         color: var(--wood-d);
       }
-
-      /* ---------- 6. Formulir identitas ---------- */
+      /* formulir */
       .form {
         display: grid;
         gap: 14px;
@@ -444,8 +422,7 @@
         display: grid;
         gap: 6px;
       }
-
-      /* ---------- 7. Peta petualangan ---------- */
+      /* peta */
       .stats {
         display: flex;
         flex-wrap: wrap;
@@ -538,8 +515,7 @@
         font-size: 0.85rem;
         margin-top: 6px;
       }
-
-      /* ---------- 8. Kuis ---------- */
+      /* kuis */
       .hud {
         display: flex;
         flex-wrap: wrap;
@@ -719,8 +695,7 @@
           transform: translateX(8px);
         }
       }
-
-      /* ---------- 9. Level selesai & hasil ---------- */
+      /* hasil */
       .center {
         text-align: center;
       }
@@ -797,8 +772,7 @@
         font-weight: 700;
         margin: 14px 0;
       }
-
-      /* ---------- 10. Pembahasan ---------- */
+      /* pembahasan */
       .rev-item {
         background: #fff;
         border: 3px solid #d7b97a;
@@ -829,8 +803,7 @@
         border: 2px solid var(--wood);
         border-radius: 12px;
       }
-
-      /* ---------- 11. Efek konfeti ---------- */
+      /* konfeti */
       #fx {
         position: fixed;
         inset: 0;
@@ -850,8 +823,7 @@
           transform: translate(var(--dx), 110vh) rotate(720deg);
         }
       }
-
-      /* ---------- 12. Responsif ---------- */
+      /* responsif */
       @media (max-width: 760px) {
         .quiz-layout.has-plot {
           grid-template-columns: 1fr;
@@ -870,8 +842,7 @@
           padding-top: 64px;
         }
       }
-
-      /* ---------- 13. Dialog dalam halaman (pengganti confirm/alert) ---------- */
+      /* dialog */
       .modal {
         position: fixed;
         inset: 0;
@@ -901,7 +872,8 @@
         margin-top: 8px;
       }
     </style>
-
+  </head>
+  <body>
     <!-- Latar belakang dekoratif -->
     <div class="clouds" aria-hidden="true">
       <span></span><span></span><span></span>
@@ -944,7 +916,7 @@
     </div>
 
     <main id="app">
-      <!-- ==================== 1. HALAMAN PEMBUKA ==================== -->
+      <!-- 1. HALAMAN PEMBUKA -->
       <section id="screen-opening" class="screen active">
         <div class="hero">
           <div class="ribbon">ASESMEN AKHIR • MATEMATIKA</div>
@@ -992,7 +964,7 @@
         </div>
       </section>
 
-      <!-- ==================== 2. IDENTITAS PEMAIN ==================== -->
+      <!-- 2. IDENTITAS PEMAIN -->
       <section id="screen-identity" class="screen">
         <div class="card">
           <h2>🧑‍✈️ Identitas Petualang</h2>
@@ -1042,7 +1014,7 @@
         </div>
       </section>
 
-      <!-- ==================== 3. PETUNJUK ==================== -->
+      <!-- 3. PETUNJUK -->
       <section id="screen-help" class="screen">
         <div class="card">
           <h2>📜 Petunjuk Permainan</h2>
@@ -1105,7 +1077,7 @@
         </div>
       </section>
 
-      <!-- ==================== TENTANG ==================== -->
+      <!-- TENTANG -->
       <section id="screen-about" class="screen">
         <div class="card">
           <h2>ℹ️ Tentang Media</h2>
@@ -1143,7 +1115,7 @@
         </div>
       </section>
 
-      <!-- ==================== 4. PETA PETUALANGAN ==================== -->
+      <!-- 4. PETA PETUALANGAN -->
       <section id="screen-map" class="screen">
         <div class="card">
           <div class="stats">
@@ -1176,7 +1148,7 @@
         </div>
       </section>
 
-      <!-- ==================== 5. KUIS ==================== -->
+      <!-- 5. KUIS -->
       <section id="screen-quiz" class="screen">
         <div class="card hud">
           <div class="grow">
@@ -1215,7 +1187,7 @@
         </div>
       </section>
 
-      <!-- ==================== LEVEL SELESAI ==================== -->
+      <!-- LEVEL SELESAI -->
       <section id="screen-leveldone" class="screen">
         <div class="card center">
           <div class="big-icon" id="levelDoneArt"></div>
@@ -1227,12 +1199,12 @@
         </div>
       </section>
 
-      <!-- ==================== 9. HASIL ASESMEN ==================== -->
+      <!-- 9. HASIL ASESMEN -->
       <section id="screen-result" class="screen">
         <div class="card center" id="resultCard"></div>
       </section>
 
-      <!-- ==================== PEMBAHASAN ==================== -->
+      <!-- PEMBAHASAN -->
       <section id="screen-review" class="screen">
         <div class="card">
           <h2>📖 Pembahasan Seluruh Soal</h2>
@@ -1255,8 +1227,6 @@
       /* =====================================================
    BAGIAN A – DATA SOAL & LOGIKA PENILAIAN (murni, tanpa DOM)
    ===================================================== */
-
-      /* Daftar level */
       const LEVELS = [
         {
           n: 1,
@@ -1292,7 +1262,7 @@
   plot   : {r: rentang sumbu, points:[{x,y,label}], segs:[[i,j],...], quad:true/false}
 */
       const QUESTIONS = [
-        /* ---------------- LEVEL 1 ---------------- */
+        /* LEVEL 1 */
         {
           id: 1,
           level: 1,
@@ -1347,7 +1317,7 @@
             "Titik pada sumbu X tidak naik maupun turun dari sumbu, sehingga ordinatnya selalu <b>0</b>. Contoh: (5, 0) dan (−3, 0).",
         },
 
-        /* ---------------- LEVEL 2 ---------------- */
+        /* LEVEL 2 */
         {
           id: 6,
           level: 2,
@@ -1417,7 +1387,7 @@
             "Kuadran III berada di kiri-bawah titik pusat. Titik <b>C(−5, −2)</b> memenuhi: x negatif dan y negatif. A di kuadran I, B di kuadran II, D di kuadran IV.",
         },
 
-        /* ---------------- LEVEL 3 ---------------- */
+        /* LEVEL 3 */
         {
           id: 11,
           level: 3,
@@ -1497,7 +1467,7 @@
             "Di kiri sumbu Y berarti x negatif: x = −3. Di atas sumbu X berarti y positif: y = 5. Koordinatnya <b>(−3, 5)</b>.",
         },
 
-        /* ---------------- LEVEL 4 ---------------- */
+        /* LEVEL 4 */
         {
           id: 16,
           level: 4,
@@ -1714,14 +1684,6 @@
         "#00897b",
       ];
 
-      /*
-  Membuat bidang Kartesius dalam SVG.
-  spec.r      : jangkauan sumbu (-r sampai r)
-  spec.points : titik-titik yang digambar
-  spec.segs   : pasangan indeks titik yang dihubungkan garis
-  spec.quad   : tampilkan label kuadran
-  reveal      : tampilkan koordinat titik + garis bantu (setelah dijawab / pembahasan)
-*/
       function planeSVG(spec, reveal) {
         const r = spec.r || 6,
           S = 420,
@@ -2126,8 +2088,7 @@
             ART.chest(false)
               .replace(/^<svg[^>]*>/, "")
               .replace(/<\/svg>$/, "") +
-            "</svg></g>" +
-            "</svg>"
+            "</svg></g></svg>"
           );
         },
       };
@@ -2942,5 +2903,229 @@
       }
       document.addEventListener("DOMContentLoaded", init);
     </script>
+
+    <!-- ===== TAMBAHAN: CETAK PDF HASIL ===== -->
+    <style>
+      #printArea {
+        display: none;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 16mm;
+        }
+        body.printing {
+          background: #fff !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        body.printing > *:not(#printArea) {
+          display: none !important;
+        }
+        body.printing #printArea {
+          display: block;
+          color: #000;
+          font-size: 13px;
+          line-height: 1.5;
+        }
+        #printArea h1 {
+          font-size: 22px;
+          text-align: center;
+        }
+        #printArea .pr-sub {
+          text-align: center;
+          margin-bottom: 14px;
+        }
+        #printArea h2 {
+          font-size: 16px;
+          margin: 18px 0 8px;
+        }
+        #printArea table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 6px 0;
+        }
+        #printArea td {
+          border: 1px solid #999;
+          padding: 6px 10px;
+          text-align: left;
+        }
+        #printArea td:first-child {
+          width: 45%;
+          font-weight: bold;
+        }
+        #printArea .pr-big {
+          font-size: 52px;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 4px;
+          line-height: 1.1;
+        }
+        #printArea .pr-cat {
+          text-align: center;
+          font-size: 17px;
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+        #printArea .pr-rev-section {
+          page-break-before: always;
+          break-before: page;
+        }
+        #printArea .pr-rev-item {
+          border: 1px solid #999;
+          border-left: 5px solid #666;
+          border-radius: 6px;
+          padding: 10px 12px;
+          margin-bottom: 10px;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        #printArea .pr-rev-item.ok {
+          border-left-color: #27ae60;
+        }
+        #printArea .pr-rev-item.no {
+          border-left-color: #e53935;
+        }
+        #printArea .pr-rev-head {
+          display: flex;
+          justify-content: space-between;
+          font-weight: bold;
+          border-bottom: 1px dashed #ccc;
+          padding-bottom: 4px;
+          margin-bottom: 6px;
+        }
+        #printArea .pr-rev-item p {
+          margin: 4px 0;
+        }
+        #printArea .pr-rev-plot {
+          width: 220px;
+          margin: 6px 0;
+        }
+        #printArea .pr-rev-plot svg {
+          width: 100%;
+          height: auto;
+          border: 1px solid #999;
+          border-radius: 6px;
+          display: block;
+        }
+      }
+    </style>
+    <div id="printArea"></div>
+    <script>
+      function printResult() {
+        SFX.click();
+        const r = computeResult(answers);
+        const levelRows = LEVELS.map((l) => {
+          const b = levelQuestions(l.n).filter(
+            (q) => answers[q.id - 1] && answers[q.id - 1].correct,
+          ).length;
+          return (
+            "<tr><td>Level " +
+            l.n +
+            " – " +
+            esc(l.title) +
+            "</td><td>" +
+            b +
+            " / 5 benar</td></tr>"
+          );
+        }).join("");
+        const reviewRows = QUESTIONS.map((q) => {
+          const a = answers[q.id - 1];
+          const status = a ? (a.correct ? "ok" : "no") : "";
+          const badge = a
+            ? a.correct
+              ? "Benar (+10 poin)"
+              : "Salah (0 poin)"
+            : "Belum dijawab";
+          const given = a ? esc(minusFix(a.given)) : "(belum dijawab)";
+          return (
+            '<div class="pr-rev-item ' +
+            status +
+            '">' +
+            '<div class="pr-rev-head"><span>Soal ' +
+            q.id +
+            " • Level " +
+            q.level +
+            "</span><span>" +
+            badge +
+            "</span></div>" +
+            "<p>" +
+            esc(q.text) +
+            "</p>" +
+            (q.plot
+              ? '<div class="pr-rev-plot">' + planeSVG(q.plot, true) + "</div>"
+              : "") +
+            "<p>Jawaban Peserta Didik: <b>" +
+            given +
+            "</b></p>" +
+            "<p>Kunci Jawaban: <b>" +
+            esc(answerText(q)) +
+            "</b></p>" +
+            "<p><b>Pembahasan:</b> " +
+            q.explanation +
+            "</p></div>"
+          );
+        }).join("");
+        $("printArea").innerHTML =
+          "<h1>Hasil Asesmen</h1>" +
+          '<div class="pr-sub">Petualangan Mencari Harta Karun<br>Matematika • Koordinat Kartesius • SMP/MTs Kelas VIII</div>' +
+          "<table><tr><td>Nama</td><td>" +
+          esc(player.nama) +
+          "</td></tr>" +
+          "<tr><td>Kelas</td><td>" +
+          esc(player.kelas) +
+          "</td></tr>" +
+          (player.absen
+            ? "<tr><td>No. Absen</td><td>" + esc(player.absen) + "</td></tr>"
+            : "") +
+          "<tr><td>Tanggal</td><td>" +
+          new Date().toLocaleDateString("id-ID", { dateStyle: "long" }) +
+          "</td></tr></table>" +
+          "<h2>Nilai Akhir</h2>" +
+          '<div class="pr-big">' +
+          r.nilai +
+          "</div>" +
+          '<div class="pr-cat">' +
+          r.category +
+          "</div>" +
+          "<table><tr><td>Jawaban Benar</td><td>" +
+          r.correct +
+          "</td></tr>" +
+          "<tr><td>Jawaban Salah</td><td>" +
+          r.wrong +
+          "</td></tr>" +
+          "<tr><td>Skor Total</td><td>" +
+          r.score +
+          " / 200</td></tr>" +
+          "<tr><td>Persentase Ketuntasan</td><td>" +
+          r.percent +
+          "%</td></tr></table>" +
+          "<h2>Rincian per Level</h2><table>" +
+          levelRows +
+          "</table>" +
+          '<div class="pr-rev-section"><h2>Pembahasan Seluruh Soal</h2>' +
+          reviewRows +
+          "</div>";
+        document.body.classList.add("printing");
+        const done = () => {
+          document.body.classList.remove("printing");
+          $("printArea").innerHTML = "";
+          window.removeEventListener("afterprint", done);
+        };
+        window.addEventListener("afterprint", done);
+        setTimeout(() => window.print(), 100);
+      }
+
+      // Ubah tombol "Salin Hasil" menjadi "Cetak PDF" saat halaman hasil muncul
+      new MutationObserver(() => {
+        const b = document.getElementById("btnCopy");
+        if (b) {
+          b.id = "btnPrint";
+          b.textContent = "🖨️ CETAK PDF";
+          b.onclick = printResult;
+        }
+      }).observe(document.getElementById("resultCard"), { childList: true });
+    </script>
+    <!-- ===== AKHIR TAMBAHAN ===== -->
   </body>
 </html>
